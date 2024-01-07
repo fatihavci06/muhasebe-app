@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\front\CustomerController;
+use App\Http\Controllers\front\FinancialController;
 use App\Http\Controllers\IndexController;
+use App\Models\FinancialStatement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +34,5 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function () {
     Route::put('update/{id}',[CustomerController::class,'update'])->name('customer.update');
     Route::get('delete/{id}',[CustomerController::class,'destroy'])->name('customer.delete');
 });
+Route::resource('financial', FinancialController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

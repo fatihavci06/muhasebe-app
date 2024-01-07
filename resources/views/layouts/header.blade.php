@@ -23,17 +23,8 @@
     <!-- Head Libs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
     <script data-pace-options='{ "ajax": false, "selectors": [ "img" ]}' src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
-    <style>
-        #dataTable_paginate{
-            font-size: 16px; /* Numara font büyüklüğü */
-            padding: 10px 15px; /* Numara kutusu içi boşluklar */
-        }
-        #dataTable_paginate a{
-            /* Numara font büyüklüğü */
-            padding: 10px 15px; /* Numara kutusu içi boşluklar */
-            cursor: pointer;
-        }
-    </style>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 <style>
     @yield('css')
 </style>

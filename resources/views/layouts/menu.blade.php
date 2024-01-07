@@ -29,9 +29,9 @@
             </li>
             <li class="menu-item-has-children "><a href="javascript:void(0);"><i class="list-icon feather feather-briefcase"></i> <span class="hide-menu">Gelir Gider Kalemi</span></a>
                 <ul class="list-unstyled sub-menu">
-                    <li><a href="../default/app-calender.html">Liste</a>
+                    <li><a href="{{ route('financial.index') }} ">Liste</a>
                     </li>
-                    <li><a href="../default/app-chat.html">Gelir/Gider Ekle</a>
+                    <li><a href="{{ route('financial.create') }}">Gelir/Gider Ekle</a>
                     </li>
 
                 </ul>

@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pencils', function (Blueprint $table) {
+        Schema::create('financial_statements', function (Blueprint $table) {
             $table->id();
-            $table->integer('pencil_type')->default(0); // 0 ise gelir kalemi , 1 ise gider kalemi
+            $table->integer('type')->default(0); // 0 ise gelir kalemi , 1 ise gider kalemi
             $table->string('name');
             $table->integer('kdv');
             $table->timestamps();
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pencils');
+        Schema::dropIfExists('financial_statements');
     }
 };
