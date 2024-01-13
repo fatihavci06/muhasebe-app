@@ -13,6 +13,9 @@ class FinancialRepository implements FinancialRepositoryInterface {
     public function find($id) {
         return FinancialStatement::find($id);
     }
+    public function getTypeData($type) {
+        return FinancialStatement::where('type',$type)->get();
+    }
 
     public function create(array $data) {
 

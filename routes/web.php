@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\front\CustomerController;
 use App\Http\Controllers\front\FinancialController;
+use App\Http\Controllers\front\InvoiceController;
 use App\Http\Controllers\IndexController;
 use App\Models\FinancialStatement;
 use Illuminate\Support\Facades\Auth;
@@ -36,3 +37,6 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function () {
 });
 Route::resource('financial', FinancialController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/invoice/{type?}',[InvoiceController::class,'index'])->name('invoice');
+
+Route::post('/invoice/store',[InvoiceController::class,'store'])->name('invoice.store');

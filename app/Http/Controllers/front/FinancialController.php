@@ -31,7 +31,7 @@ class FinancialController extends Controller
 
 
 
-                if($data->type==1){
+                if($data->type==0){
                       $btn ='Gelir';
                  }
                  else{
@@ -96,15 +96,30 @@ class FinancialController extends Controller
      */
     public function edit(string $id)
     {
+        $data=$this->financialService->getDataById($id);
+        return view('front.financial.edit',['data'=>$data]);
+       
         //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(FinancialRequest $request, string $id)
     {
-        //
+       
+       try {
+        $isTrue = $this->financialService->updateData($id,$request->all());
+        if ($isTrue) {
+            return response()->json(['success'=>'Düzenleme Başarılı']);
+        } else {
+            return response()->json(['success'=>'Düzenleme Başarısız']);
+
+        }
+    } catch (Exception $e) {
+        Log::error(json_encode($e->getMessage()));
+    }
+        return $request->all();
     }
 
     /**

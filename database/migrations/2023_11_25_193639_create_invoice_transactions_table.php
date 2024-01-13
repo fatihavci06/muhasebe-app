@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('invoice_transactions', function (Blueprint $table) {
             $table->id();
             $table->integer('invvoice_id');
-            $table->integer('pencil_id');
-            $table->integer('amount');
-            $table->double('price');
-            $table->integer('kdv');
-            $table->double('subtotal');
-            $table->double('kdvtotal');
-            $table->double('total');
+            $table->integer('pencil_id')->nullable();
+            $table->integer('amount')->nullable();
+            $table->double('price')->nullable();
+            $table->integer('kdv')->nullable();
+            $table->double('subtotal')->nullable();
+            $table->double('kdvtotal')->nullable();
+            $table->double('total')->nullable();
             $table->timestamps();
         });
     }

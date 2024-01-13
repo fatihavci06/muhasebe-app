@@ -1,6 +1,6 @@
-@section('title', 'Customer Update')
-@section('module1')Customer @endsection
-@section('module2')Update @endsection
+@section('title', 'Financial Edit')
+@section('module1')Financial Statement @endsection
+@section('module2')Edit @endsection
 <!-- /.navbar -->
 @extends('layouts.master')
 <!-- SIDEBAR -->
@@ -10,110 +10,46 @@
             <div class="col-md-12 widget-holder">
                 <div class="widget-bg">
                     <div class="widget-body clearfix">
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-                        @if (session('fail'))
-                            <div class="alert alert-danger">
-                                {{ session('fail') }}
-                            </div>
-                        @endif
-                        @if ($errors->any())
-                    <div class="alert alert-danger">
-                            @foreach ($errors->all() as $e)
-                                <li>{{ $e }}</li>
-                            @endforeach
+                        <div class="alert alert-success" id="success" style="display: none">
+
                         </div>
-                        @endif
+                        <div class="alert alert-danger" id="error" style="display: none">
 
-                        <form action="{{ route('customer.update',$customer->id) }}" method="POST" enctype="multipart/form-data">
+                        </div>
+                        <form action="{{ route('financial.update',[$data->id]) }}" method="POST" 
+                            id="financialForm">
                             @csrf
-                            @method('PUT')
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <img src="{{Storage::url($customer->photo)}}" style="max-width: 150px;max-height:200px;" class="rounded mx-auto d-block" alt="...">
-                                    <label class=" col-form-label">Müşteri Resmi</label>
-                                    <input class="form-control" name="photo" type="file">
-                                </div>
-                            </div>
+                            
+
 
                             <div class="form-group row">
                                 <div class="col-md-12">
-                                    <label for="" class="col-form-label">Müşteri Tipi </label>
+                                    <label for="" class="col-form-label">Kalem Tipi</label>
                                     <div>
-                                        <input type="radio" class="change-customerType" checked  {{ old('customer_type',$customer->customer_type) == '0' ? 'checked' : '' }} name="customer_type"
-                                            value="0"> Bireysel
+                                        <input type="radio" checked {{ $data->type == '0' ? 'checked' : '' }}
+                                            name="type" value="0"> Gelir
                                     </div>
                                     <div>
-                                        <input type="radio" class="change-customerType" {{ old('customer_type',$customer->customer_type) == '1' ? 'checked' : '' }} name="customer_type"
-                                            value="1"> Kurumsal
+                                        <input type="radio" {{ $data->type == '1' ? 'checked' : '' }} name="type"
+                                            value="1"> Gider
                                     </div>
                                 </div>
                             </div>
 
 
-                            <div class="form-group row firma--area"  style="display: {{ old('customer_type',$customer->customer_type) == '1' ? '' : 'none' }}">
-                                <div class="col-md-4">
-                                    <label class="col-form-label" for="l0">Firma Adı</label>
-                                    <input class="form-control" name="company_name" type="text" value="{{ old('company_name',$customer->company_name) }}">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="col-form-label" for="l0">Vergi Numarası</label>
-                                    <input class="form-control" name="tax_number" type="text" value="{{ old('tax_number',$customer->tax_number) }}">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="col-form-label" for="l0">Vergi Dairesi</label>
-                                    <input class="form-control" name="tax_office" value="{{ old('tax_office',$customer->tax_office) }}" type="text">
-                                </div>
-                            </div>
 
 
-
+                            <input class="form-control" name="id" type="hidden" value="{{ $data->id }}">
                             <div class="form-group row">
                                 <div class="col-md-6">
-                                    <label class="col-form-label" for="l0">Ad</label>
-                                    <input class="form-control" name="name" type="text" value="{{ old('name',$customer->name) }}">
+                                    <label class="col-form-label" for="l0">Kalem Adı</label>
+                                    <input class="form-control" name="name" type="text" value="{{ $data->name }}">
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="col-form-label" for="l0">Soyad</label>
-                                    <input class="form-control" name="surname" type="text" value="{{ old('surname',$customer->surname) }}">
+                                    <label class="col-form-label" for="l0">KDV</label>
+                                    <input class="form-control" name="kdv" type="text" value="{{ $data->kdv }}">
                                 </div>
                             </div>
-
-
-                            <div class="form-group row">
-                                <div class="col-md-6">
-                                    <label class="col-form-label" for="l0">Doğum Tarih</label>
-                                    <input class="form-control" name="birthday" type="date" value="{{ old('birthday',$customer->birthday) }}">
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="col-form-label" for="l0">TC</label>
-                                    <input class="form-control" name="tc_no" value="{{ old('tc_no',$customer->tc_no) }}" type="text">
-                                </div>
-                            </div>
-
-
-
-                            <div class="form-group row">
-                                <div class="col-md-4">
-                                    <label class="col-form-label" for="l0">Adres</label>
-                                    <input class="form-control" name="adress" value="{{ old('adress',$customer->adress) }}" type="text">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="col-form-label" for="l0">Telefon</label>
-                                    <input class="form-control" name="number" value="{{ old('number',$customer->number) }}" type="text">
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="col-form-label" for="l0">Email</label>
-                                    <input class="form-control" name="email" value="{{ old('email',$customer->email) }}" type="text">
-                                </div>
-                            </div>
-
-
-
-
 
 
 
@@ -121,7 +57,8 @@
                             <div class="form-actions">
                                 <div class="form-group row">
                                     <div class="col-md-12 ml-md-auto btn-list">
-                                        <button class="btn btn-primary btn-rounded" type="submit">Kaydet</button>
+                                        <a class="btn btn-primary btn-rounded" style="color:#fff"
+                                            id="saveFinancial">Kaydet</a>
                                     </div>
                                 </div>
                             </div>
@@ -136,19 +73,71 @@
 @endsection
 @section('jquery')
 
-    $(document).ready(function () {
-
-    $(".change-customerType").change(function () {
-
-    var customerType = $(this).val();
-    if(customerType==1){
-    $(".firma--area").fadeIn();
-
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-    else{
+});
 
-    $(".firma--area").fadeOut();
-    }
+$(document).on('click', '#saveFinancial', function(e) {
+    e.preventDefault();
+
+    var err = '';
+
+    // Formdaki input alanlarından değerleri almak
+    var name = $('input[name="name"]').val();
+    var type = $('input[name="type"]:checked').val();
+    var kdv = $('input[name="kdv"]').val();
+    var id= $("input[name=id]").val();
+    var url = "{{ route('financial.update', ":id") }}";
+        url = url.replace(':id', id);
+
+    // AJAX isteği gönderme
+    $.ajax({
+        type: 'PUT',
+        url: url,
+        data: { name: name, type: type, kdv: kdv },
+        success: function(data) {
+            console.log(data);
+            $('#error').hide();
+            $('#success').show();
+            $('#success').html(data.success);
+            $('#saveFinancial').prop('disabled', true);
+
+            setTimeout(function() {
+                $('#saveFinancial').prop('disabled', false);
+                
+            }, 2000);
+
+        },
+        error: function(error) {
+            // İstek hata döndüğünde burası çalışır
+            if (error.responseJSON) {
+                // Sunucunun döndüğü JSON hatası
+                console.error('Response data:', error.responseJSON);
+
+                $('#error').show();
+                $('#success').hide();
+
+                $.each(error.responseJSON.errors, function(key, value) {
+                    err += '<li>' + value + '</li>';
+                });
+
+                $('#error').html(err);
+
+
+
+            } else {
+                // Diğer hata durumları
+                console.error('Error:', error.statusText);
+
+                $('#error').show();
+                $('#error').html('<li>' + error.statusText + '</li>');
+            }
+        }
     });
-    });
+});
+
+
+
 @endsection

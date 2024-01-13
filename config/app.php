@@ -172,6 +172,8 @@ return [
         App\Providers\CustomerServiceProvider::class,
         App\Providers\FinancialRepositoryProvider::class,
         App\Providers\FinancialServiceProvider::class,
+        App\Providers\InvoiceServiceProvider::class,
+        App\Providers\InvoiceRepositoryProvider::class,
     ])->toArray(),
 
     /*

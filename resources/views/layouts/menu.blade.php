@@ -40,7 +40,7 @@
                 <ul class="list-unstyled sub-menu">
                     <li><a href="../default/page-profile.html">Fatura Listesi</a>
                     </li>
-                    <li><a href="../default/page-login.html">Gelir Faturası Ekle</a>
+                    <li><a href="{{route('invoice',['type'=>0])}}">Gelir Faturası Ekle</a>
                     </li>
                     <li><a href="../default/page-login.html">Gider Faturası Ekle</a>
                     </li>

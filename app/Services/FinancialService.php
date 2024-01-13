@@ -15,6 +15,9 @@ class FinancialService
     public function getAllData() {
         return $this->financialRepository->getAll();
     }
+    public function getTypeData(int $type) {
+        return $this->financialRepository->getTypeData($type);
+    }
 
     public function getDataById($id) {
         return $this->financialRepository->find($id);

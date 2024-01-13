@@ -18,8 +18,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mithril/1.1.1/mithril.js"></script>
 <script src="{{ asset('thema/') }}/assets/vendors/theme-widgets/widgets.js"></script>
+
 <script src="{{ asset('thema/') }}/assets/js/theme.js"></script>
 <script src="{{ asset('thema/') }}/assets/js/custom.js"></script>
+<script src="{{asset('thema/')}}/assets/js/project.js"></script>
 @yield('includes')
 <script>
     @yield('jquery')

@@ -9,5 +9,9 @@ class FinancialStatement extends Model
 {
     use HasFactory;
     protected $fillable = ['type', 'name', 'kdv'];
+    public static function getFinancial()
+    {
+      return FinancialStatement::where('type',0)->get();  
+    }
 
 }
