@@ -38,7 +38,7 @@
             </li>
             <li class="menu-item-has-children"><a href="javascript:void(0);"><i class="list-icon feather feather-user"></i> <span class="hide-menu">Faturalar</span></a>
                 <ul class="list-unstyled sub-menu">
-                    <li><a href="../default/page-profile.html">Fatura Listesi</a>
+                    <li><a href="{{ route('invoice.list') }}">Fatura Listesi</a>
                     </li>
                     <li><a href="{{route('invoice',['type'=>0])}}">Gelir Faturası Ekle</a>
                     </li>

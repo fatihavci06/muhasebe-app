@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 
 interface InvoiceRepositoryInterface {
     public function getAll();
+    public function getAllDataWithCustomer();
     public function find($id);
     public function create(Request $request);
     public function update($id, array $data);

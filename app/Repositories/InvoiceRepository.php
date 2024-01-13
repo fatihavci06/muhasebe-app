@@ -11,6 +11,9 @@ class InvoiceRepository implements InvoiceRepositoryInterface {
     public function getAll() {
         return Invoice::all();
     }
+    public function getAllDataWithCustomer() {
+        return Invoice::with('customer')->get();
+    }
 
     public function find($id) {
         return Invoice::find($id);
@@ -18,7 +21,7 @@ class InvoiceRepository implements InvoiceRepositoryInterface {
 
     public function create(Request $request) {
 
-    
+
         $invoice = new Invoice($request->all());
 
         return $invoice->save();

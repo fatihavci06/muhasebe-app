@@ -11,6 +11,7 @@ use App\Services\FinancialService;
 use App\Services\InvoiceService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class InvoiceController extends Controller
 {
@@ -20,11 +21,11 @@ class InvoiceController extends Controller
     protected $customerService;
     protected $financialService;
     protected $invoiceService;
-    public function __construct(CustomerService $customerService, FinancialService $financialService,InvoiceService $invoiceService)
+    public function __construct(CustomerService $customerService, FinancialService $financialService, InvoiceService $invoiceService)
     {
         $this->customerService = $customerService;
         $this->financialService = $financialService;
-        $this->invoiceService=$invoiceService;
+        $this->invoiceService = $invoiceService;
     }
     public function index($type = 0)
     {
@@ -40,11 +41,35 @@ class InvoiceController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function list(Request $request)
     {
+
+        if ($request->ajax()) {
+            $data = $this->invoiceService->getAllDataWithCustomer();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('Type', function ($data) {
+                    if ($data->type == 0) {
+                        $btn = 'Gelir';
+                    } else {
+                        $btn = 'Gider';
+                    }
+                    return $btn;
+                })
+                ->addColumn('customer', function ($data) {
+
+                    return $data->customer->name;
+                })
+                ->addColumn('action', function ($data) {
+                    $btn = '<a href="' . route("customer.edit", $data->id) . '" class="edit btn btn-primary btn-sm">Düzenle</a>';
+                    $btn .= ' <a href="#" class="delete btn btn-danger btn-sm" onclick="silmedenSor(\'' . route('customer.delete', ['id' => $data->id]) . '\'); return false;">Sil</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('front.invoice.index');
         //
     }
 
@@ -53,15 +78,15 @@ class InvoiceController extends Controller
      */
     public function store(InvoiceRequest $request)
     {
-       
-        
+
+
         DB::beginTransaction();
         try {
-            
-           $this->invoiceService->createData($request,$request->invoice_type);
+
+            $this->invoiceService->createData($request, $request->invoice_type);
             DB::commit();
-            
-            return response()->json(['data' => 'Kayıt Başarılı'],200);
+
+            return response()->json(['data' => 'Kayıt Başarılı'], 200);
         } catch (\Exception $e) {
             // Hata durumunda transaction'ı geri al
             DB::rollBack();
@@ -69,7 +94,7 @@ class InvoiceController extends Controller
             // Hata mesajını işle veya logla
             return response()->json(['error' => 'Transaction failed: ' . $e->getMessage()], 500);
         }
-        
+
         //
     }
 

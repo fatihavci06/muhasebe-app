@@ -20,6 +20,10 @@ class InvoiceService
     {
         return $this->invoiceRepository->getAll();
     }
+    public function getAllDataWithCustomer()
+    {
+        return $this->invoiceRepository->getAllDataWithCustomer();
+    }
 
     public function getDataById($id)
     {
@@ -28,7 +32,7 @@ class InvoiceService
 
     public function createData(Request $request,$invoice_type)
     {
-        
+
         $invoice = new Invoice;
         $invoice->invoice_type = 0;
         $invoice->invoice_no = $request->faturaNo;

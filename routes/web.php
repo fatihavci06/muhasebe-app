@@ -37,6 +37,7 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function () {
 });
 Route::resource('financial', FinancialController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/invoice/{type?}',[InvoiceController::class,'index'])->name('invoice');
 
+Route::get('/invoice/list',[InvoiceController::class,'list'])->name('invoice.list');
 Route::post('/invoice/store',[InvoiceController::class,'store'])->name('invoice.store');
+Route::get('/invoice/{type?}',[InvoiceController::class,'index'])->name('invoice');
