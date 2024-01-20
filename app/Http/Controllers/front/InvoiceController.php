@@ -50,7 +50,7 @@ class InvoiceController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('Type', function ($data) {
-                    if ($data->type == 0) {
+                    if ($data->invoice_type == 0) {
                         $btn = 'Gelir';
                     } else {
                         $btn = 'Gider';
@@ -62,8 +62,8 @@ class InvoiceController extends Controller
                     return $data->customer->name;
                 })
                 ->addColumn('action', function ($data) {
-                    $btn = '<a href="' . route("customer.edit", $data->id) . '" class="edit btn btn-primary btn-sm">Düzenle</a>';
-                    $btn .= ' <a href="#" class="delete btn btn-danger btn-sm" onclick="silmedenSor(\'' . route('customer.delete', ['id' => $data->id]) . '\'); return false;">Sil</a>';
+                    $btn = '<a href="' . route("invoice.edit", $data->id) . '" class="edit btn btn-primary btn-sm">Düzenle</a>';
+                    $btn .= ' <a href="#" class="delete btn btn-danger btn-sm" onclick="silmedenSor(\'' . route('invoice.destroy', ['id' => $data->id]) . '\'); return false;">Sil</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -83,7 +83,7 @@ class InvoiceController extends Controller
         DB::beginTransaction();
         try {
 
-            $this->invoiceService->createData($request, $request->invoice_type);
+            $this->invoiceService->createData($request);
             DB::commit();
 
             return response()->json(['data' => 'Kayıt Başarılı'], 200);
@@ -127,6 +127,7 @@ class InvoiceController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->invoiceService->deleteData($id);
         //
     }
 }

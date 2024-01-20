@@ -50,6 +50,17 @@ class FinancialController extends Controller
         return view('front.financial.index');
         //financialService
     }
+    public function getAllData(Request $request){
+        if($request->type==''){
+            $type=0;
+        }
+        else{
+            $type=$request->type;
+        }
+        $data=$this->financialService->getTypeData($type);
+
+        return response()->json(['data'=>$data]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -98,7 +109,7 @@ class FinancialController extends Controller
     {
         $data=$this->financialService->getDataById($id);
         return view('front.financial.edit',['data'=>$data]);
-       
+
         //
     }
 
@@ -107,7 +118,7 @@ class FinancialController extends Controller
      */
     public function update(FinancialRequest $request, string $id)
     {
-       
+
        try {
         $isTrue = $this->financialService->updateData($id,$request->all());
         if ($isTrue) {

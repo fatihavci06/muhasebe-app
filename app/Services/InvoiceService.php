@@ -30,11 +30,11 @@ class InvoiceService
         return $this->invoiceRepository->find($id);
     }
 
-    public function createData(Request $request,$invoice_type)
+    public function createData(Request $request)
     {
 
         $invoice = new Invoice;
-        $invoice->invoice_type = 0;
+        $invoice->invoice_type = $request->invoice_type;
         $invoice->invoice_no = $request->faturaNo;
         $invoice->customer_id = $request->musteriId;
         $invoice->invoice_date = $request->faturaTarih;

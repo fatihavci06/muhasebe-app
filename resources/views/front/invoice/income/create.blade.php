@@ -1,5 +1,5 @@
-@section('title', 'Customer Create')
-@section('module1')Customer @endsection
+@section('title', 'Invoice Create')
+@section('module1')Invoice @endsection
 @section('module2')Create @endsection
 <!-- /.navbar -->
 @extends('layouts.master')
@@ -24,13 +24,21 @@
 
                     <form method="POST" id="formInvoice">
                         @csrf
-                        <input type="hidden" name="invoice_type" value="0">
+
                         <div class="form-group row firma--area">
-                            <div class="col-md-4">
-                                <label class="col-form-label" for="l0">Fatura No</label>
-                                <input class="form-control" required name="faturaNo" type="text">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-form-label" for="l0">Tip Seçiniz</label>
+                                    <select class="m-b-10 form-control" id="invoice_type" name="invoice_type" data-toggle="select2">
+                                        <option value="">Seçiniz</option>
+
+                                        <option value="0">Gelir</option>
+                                        <option value="1">Gider</option>
+
+                                    </select>
+                                </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-form-label" for="l0">Müşteri Seçiniz</label>
                                     <select class="m-b-10 form-control" name="musteriId" data-toggle="select2">
@@ -41,7 +49,15 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                        </div>
+
+                        <div class="form-group row firma--area">
+                            <div class="col-md-6">
+                                <label class="col-form-label" for="l0">Fatura No</label>
+                                <input class="form-control" required name="faturaNo" type="text">
+                            </div>
+
+                            <div class="col-md-6">
                                 <label class="col-form-label" for="l0">Fatura Tarih</label>
                                 <input class="form-control" required name="faturaTarih" value="{{ date("Y-m-d") }}" type="date">
                             </div>
@@ -119,31 +135,63 @@
 @endsection
 @section('jquery')
 function addRow() {
-    // Yeni satır HTML içeriği
-    var newRowHtml = `
-<tr class="kalem">
-    <td style="width:15%;"><select class="form-control" onchange="setKDV(this)" name="kalem[]">
-            <option value="">Seçiniz</option>@foreach($financialItem as $data)<option data-kdv={{$data->kdv}} value="{{$data->id}}">{{$data->name}}</option>@endforeach
-        </select></td>
-    <td><input type="text" class="form-control" name="urun[]"></td>
-    <td><input type="text" class="form-control" name="adet[]" oninput="calculateTotal(this)"></td>
-    <td><input type="text" class="form-control" name="tutar[]" oninput="calculateTotal(this)"></td>
-    <td><input type="text" class="form-control" name="toplamTutar[]"></td>
-    <td><input type="text" class="form-control" name="kdv[]" oninput="calculateTotal(this)"></td>
-    <td><input type="text" class="form-control" name="kdvToplam[]"></td>
-    <td><input type="text" class="form-control" name="genelToplam[]"></td>
-    <td><input type="text" class="form-control" name="aciklama[]"></td>
-    <td><button class="btn btn-danger" onclick="removeRow(this)">Kaldır</button></td>
-</tr>
-`;
+    var selectedValue = $("#invoice_type").val();
+    if(selectedValue==''){
+        alert('Tip Seçiniz...');
+        return false;
+    }
+    $.ajax({
+        type: 'GET',
+        url: '{{ route("financial.getdata") }}',
+        data: {type:selectedValue},
+        success: function (response) {
 
-    // Dinamik satırı tabloya ekle
-    $('#dynamic-form-body').append(newRowHtml);
+            console.log(response.data);
+            var option='';
+            $.each(response.data, function(index, item) {
+                option=option + '<option  data-kdv="'+item.kdv+'"value="'+item.id+'">'+item.name+'</option>';
+               console.log(option);
+
+                // Option'u selectBox'a ekleyin
+
+            });
+            var newRowHtml = `
+            <tr class="kalem">
+                <td style="width:15%;"><select class="form-control" id="kalemSec" onchange="setKDV(this)" name="kalem[]">
+                        <option value="">Seçiniz</option>`+option+`
+                    </select></td>
+                <td><input type="text" class="form-control" name="urun[]"></td>
+                <td><input type="text" class="form-control" name="adet[]" oninput="calculateTotal(this)"></td>
+                <td><input type="text" class="form-control" name="tutar[]" oninput="calculateTotal(this)"></td>
+                <td><input type="text" class="form-control" name="toplamTutar[]"></td>
+                <td><input type="text" class="form-control" name="kdv[]" oninput="calculateTotal(this)"></td>
+                <td><input type="text" class="form-control" name="kdvToplam[]"></td>
+                <td><input type="text" class="form-control" name="genelToplam[]"></td>
+                <td><input type="text" class="form-control" name="aciklama[]"></td>
+                <td><button class="btn btn-danger" onclick="removeRow(this)">Kaldır</button></td>
+            </tr>
+            `;
+
+                // Dinamik satırı tabloya ekle
+                $('#dynamic-form-body').append(newRowHtml);
+
+
+        },
+        error: function (error) {
+
+
+
+        }
+    });
+    console.log(selectedValue);
+
 }
 var invoiceRoutes = {
         storeInvoice: "{{ route('invoice.store') }}",
-       
+        financialGetData: "{{ route('financial.getdata') }}",
+
     };
+
 @endsection
 @section('includes')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> ds

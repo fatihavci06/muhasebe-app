@@ -19,17 +19,17 @@ function setKDV(selectElement) {
 }
 
 function calculateTotal(input) {
-   
+
     var row = $(input).closest('tr');
     var adet = parseFloat(row.find('input[name="adet[]"]').val()) || 0;
     var tutar = parseFloat(row.find('input[name="tutar[]"]').val()) || 0;
     var toplamTutar = adet * tutar;
 
-    
+
     row.find('input[name="toplamTutar[]"]').val(toplamTutar.toFixed(2));
     var kdv = parseFloat(row.find('input[name="kdv[]"]').val()) || 0;
     console.log(kdv);
-   
+
     var kdvToplam = toplamTutar * (kdv / 100);
     var genelToplam = toplamTutar + kdvToplam;
     row.find('input[name="kdvToplam[]"]').val(kdvToplam.toFixed(2));
@@ -42,22 +42,22 @@ function calculateToplamGenelTutar() {
     // Toplam Genel Tutarı hesapla
     var toplamGenelTutar = 0;
 
- 
+
     $('#dynamic-form-body tr').each(function () {
         var genelToplam = parseFloat($(this).find('input[name="genelToplam[]"]').val()) || 0;
         toplamGenelTutar += genelToplam;
     });
 
-   
+
     console.log(toplamGenelTutar.toFixed(2));
     $('#toplamGenelTutar').text(toplamGenelTutar.toFixed(2));
 }
 function calculateKdvToplamTutar() {
-  
+
     var kdv = 0;
     var toplam = 0;
 
-   
+
     $('#dynamic-form-body tr').each(function () {
         var kdv = parseFloat($(this).find('input[name="kdvToplam[]"]').val()) || 0;
 
@@ -89,8 +89,8 @@ function calculateAraToplam() {
 $("#saveInvoice").on("click", function () {
     var formData = $('#formInvoice').serializeArray();
     console.log(22222);
-    
-    
+
+
 
     $.ajaxSetup({
 
@@ -103,10 +103,10 @@ $("#saveInvoice").on("click", function () {
     });
     $.ajax({
         type: 'POST',
-        url:invoiceRoutes.storeInvoice,
+        url: invoiceRoutes.storeInvoice,
         data: formData,
         success: function (response) {
-            
+
             console.log(response);
             $('#success').show();
             $('#error').hide();
@@ -118,11 +118,11 @@ $("#saveInvoice").on("click", function () {
 
         },
         error: function (error) {
-           
-            
+
+
             var err = '';
             if (error.responseJSON) {
-              
+
                 console.error('Response data:', error.responseJSON);
 
                 $('#error').show();
@@ -137,7 +137,7 @@ $("#saveInvoice").on("click", function () {
 
 
             } else {
-                
+
                 console.error('Error:', error.statusText);
 
                 $('#error').show();
@@ -145,4 +145,10 @@ $("#saveInvoice").on("click", function () {
             }
         }
     });
+});
+
+$("#invoice_type").change(function () {
+    // seçilen değeri al
+    $(".kalem").empty();
+
 });

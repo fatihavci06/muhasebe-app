@@ -27,8 +27,9 @@ class InvoiceRequest extends FormRequest
             'faturaNo'=>'required' ,
             'faturaTarih'=>'required' ,
             'musteriId'=>'required',
-            'kalem'=>'required'
-            
+            'kalem'=>'required',
+            'invoice_type'=>'required'
+
         ];
     }
     protected function failedValidation(Validator $validator)
