@@ -29,7 +29,10 @@ class InvoiceService
     {
         return $this->invoiceRepository->find($id);
     }
-
+    public function getDataByIdWithCustomer($id)
+    {
+        return $this->invoiceRepository->getDataByIdWithCustomer($id);
+    }
     public function createData(Request $request)
     {
 

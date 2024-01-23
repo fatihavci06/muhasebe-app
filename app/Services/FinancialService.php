@@ -22,6 +22,9 @@ class FinancialService
     public function getDataById($id) {
         return $this->financialRepository->find($id);
     }
+    public function getDataByType($type) {
+        return $this->financialRepository->getTypeData($type);
+    }
 
     public function createData(array $data) {
         return $this->financialRepository->create($data);

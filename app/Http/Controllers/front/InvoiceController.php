@@ -112,6 +112,10 @@ class InvoiceController extends Controller
     public function edit(string $id)
     {
         //
+        $customers=$this->customerService->getAllCustomers();
+        $data= $this->invoiceService->getDataByIdWithCustomer($id);
+        $financial= $this->financialService->getDataByType($data->invoice_type);
+        return view('front.invoice.income.edit',['customers'=>$customers,'data'=>$data,'financial'=>$financial]);
     }
 
     /**

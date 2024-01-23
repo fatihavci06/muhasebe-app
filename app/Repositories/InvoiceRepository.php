@@ -14,6 +14,10 @@ class InvoiceRepository implements InvoiceRepositoryInterface {
     public function getAllDataWithCustomer() {
         return Invoice::with('customer')->get();
     }
+    public function getDataByIdWithCustomer($id){
+
+        return Invoice::with(['customer','transactions'])->where('id',$id)->first();
+    }
 
     public function find($id) {
         return Invoice::find($id);
