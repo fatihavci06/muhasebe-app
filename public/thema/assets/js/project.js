@@ -1,5 +1,56 @@
 
+function addRow() {
+    var selectedValue = $("#invoice_type").val();
+    if(selectedValue==''){
+        alert('Tip Seçiniz...');
+        return false;
+    }
+    $.ajax({
+        type: 'GET',
+        url: invoiceRoutes.financialGetData,
+        data: {type:selectedValue},
+        success: function (response) {
 
+            console.log(response.data);
+            var option='';
+            $.each(response.data, function(index, item) {
+                option=option + '<option  data-kdv="'+item.kdv+'"value="'+item.id+'">'+item.name+'</option>';
+               console.log(option);
+
+                // Option'u selectBox'a ekleyin
+
+            });
+            var newRowHtml = `
+            <tr class="kalem">
+                <td style="width:15%;"><select class="form-control" id="kalemSec" onchange="setKDV(this)" name="kalem[]">
+                        <option value="">Seçiniz</option>`+option+`
+                    </select></td>
+                <td><input type="text" class="form-control" name="urun[]"></td>
+                <td><input type="text" class="form-control" name="adet[]" oninput="calculateTotal(this)"></td>
+                <td><input type="text" class="form-control" name="tutar[]" oninput="calculateTotal(this)"></td>
+                <td><input type="text" class="form-control" name="toplamTutar[]"></td>
+                <td><input type="text" class="form-control" name="kdv[]" oninput="calculateTotal(this)"></td>
+                <td><input type="text" class="form-control" name="kdvToplam[]"></td>
+                <td><input type="text" class="form-control" name="genelToplam[]"></td>
+                <td><input type="text" class="form-control" name="aciklama[]"></td>
+                <td><button class="btn btn-danger" onclick="removeRow(this)">Kaldır</button></td>
+            </tr>
+            `;
+
+                // Dinamik satırı tabloya ekle
+                $('#dynamic-form-body').append(newRowHtml);
+
+
+        },
+        error: function (error) {
+
+
+
+        }
+    });
+    console.log(selectedValue);
+
+}
 
 function removeRow(button) {
     // Kaldır butonuna basıldığında satırı sil
