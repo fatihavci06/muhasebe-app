@@ -31,6 +31,7 @@ class InvoiceRequest extends FormRequest
             'invoice_type'=>'required'
 
         ];
+
     }
     protected function failedValidation(Validator $validator)
     {

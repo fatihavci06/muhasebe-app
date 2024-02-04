@@ -197,6 +197,69 @@ $("#saveInvoice").on("click", function () {
         }
     });
 });
+$("#updateInvoice").on("click", function () {
+    var formData = $('#formInvoice').serializeArray();
+    console.log(22222);
+
+
+
+    $.ajaxSetup({
+
+        headers: {
+
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+
+    });
+    $.ajax({
+        type: 'PUT',
+        url: invoiceRoutes.updateInvoice,
+        data: formData,
+        success: function (response) {
+            $("#updateInvoice").fadeOut();
+            console.log(response);
+            $('#success').show();
+            $('#error').hide();
+            $('#success').html(response.data);
+            setTimeout(function () {
+                $("#success").fadeOut();
+                $("#updateInvoice").fadeOut("slow", function(){
+                    $(this).fadeIn();
+                });
+            }, 4000);
+
+        },
+        error: function (error) {
+
+
+            var err = '';
+            if (error.responseJSON) {
+
+                console.error('Response data:', error.responseJSON);
+
+                $('#error').show();
+                $('#success').hide();
+
+                $.each(error.responseJSON.errors, function (key, value) {
+                    err += '<li>' + value + '</li>';
+                });
+
+                $('#error').html(err);
+
+
+
+            } else {
+
+                console.error('Error:', error.statusText);
+
+                $('#error').show();
+                $('#error').html('<li>' + error.statusText + '</li>');
+            }
+        }
+    });
+});
+
 
 $("#invoice_type").change(function () {
     // seçilen değeri al

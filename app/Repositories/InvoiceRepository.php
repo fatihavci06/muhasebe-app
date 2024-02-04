@@ -32,11 +32,15 @@ class InvoiceRepository implements InvoiceRepositoryInterface {
 
     }
 
-    public function update($id, array $data) {
+    public function update($id, Request $request) {
 
         $invoice = Invoice::findOrFail($id);
+        $invoice->invoice_type = $request->invoice_type;
+        $invoice->invoice_no = $request->faturaNo;
+        $invoice->customer_id = $request->musteriId;
+        $invoice->invoice_date = $request->faturaTarih;
 
-        return $invoice->update($data);
+        return $invoice->save();
 
     }
 

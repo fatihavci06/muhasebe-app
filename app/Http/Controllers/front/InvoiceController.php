@@ -79,20 +79,11 @@ class InvoiceController extends Controller
     public function store(InvoiceRequest $request)
     {
 
-
-        DB::beginTransaction();
-        try {
-
-            $this->invoiceService->createData($request);
-            DB::commit();
-
+        $result=$this->invoiceService->createData($request);
+        if($result==true){
             return response()->json(['data' => 'Kayıt Başarılı'], 200);
-        } catch (\Exception $e) {
-            // Hata durumunda transaction'ı geri al
-            DB::rollBack();
-
-            // Hata mesajını işle veya logla
-            return response()->json(['error' => 'Transaction failed: ' . $e->getMessage()], 500);
+        }else{
+            return response()->json(['error' => 'Transaction failed: ' ], 500);
         }
 
         //
@@ -121,9 +112,16 @@ class InvoiceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(InvoiceRequest $request, string $id)
     {
         //
+        $result=$this->invoiceService->updateData($id,$request);
+        if($result==true){
+            return response()->json(['data' => 'Kayıt Başarılı'], 200);
+        }else{
+            return response()->json(['error' => 'Transaction failed: ' ], 500);
+        }
+
     }
 
     /**

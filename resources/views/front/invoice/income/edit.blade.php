@@ -1,6 +1,6 @@
-@section('title', 'Invoice Create')
+@section('title', 'Invoice Edit')
 @section('module1')Invoice @endsection
-@section('module2')Create @endsection
+@section('module2')Edit @endsection
 <!-- /.navbar -->
 @extends('layouts.master')
 <!-- SIDEBAR -->
@@ -131,16 +131,10 @@
                             </div>
                         </div>
 
-
-
-
-
-
-
                         <div class="form-actions">
                             <div class="form-group row">
                                 <div class="col-md-12 ml-md-auto btn-list">
-                                    <a class="btn btn-primary btn-rounded" id="saveInvoice">Kaydet</a>
+                                    <a class="btn btn-primary btn-rounded" id="updateInvoice">Kaydet</a>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +149,7 @@
 @endsection
 @section('jquery')
 $(document).ready(function() {
-    // Sayfa içeriği tamamen yüklendiğinde çalışacak kod buraya gelecek
+
     calculateToplamGenelTutar();
     calculateKdvToplamTutar();
     calculateAraToplam();
@@ -163,7 +157,7 @@ $(document).ready(function() {
 });
 
 var invoiceRoutes = {
-        storeInvoice: "{{ route('invoice.store') }}",
+        updateInvoice: "{{ route('invoice.update',$data->id) }}",
         financialGetData: "{{ route('financial.getdata') }}",
 
     };
