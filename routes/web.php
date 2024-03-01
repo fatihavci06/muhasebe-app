@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\front\BankController;
 use App\Http\Controllers\front\CustomerController;
 use App\Http\Controllers\front\FinancialController;
 use App\Http\Controllers\front\InvoiceController;
@@ -34,6 +35,16 @@ Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function () {
     Route::get('edit/{id}', [CustomerController::class, 'edit'])->name('customer.edit');
     Route::put('update/{id}', [CustomerController::class, 'update'])->name('customer.update');
     Route::get('delete/{id}', [CustomerController::class, 'destroy'])->name('customer.delete');
+});
+
+Route::group(['prefix' => 'bank', 'middleware' => 'auth'], function () {
+    // Bu grup içindeki tüm routelar için bir önek ve namespace belirlenir.
+    Route::get('/', [BankController::class, 'index'])->name('bank.index');
+    Route::get('create', [BankController::class, 'create'])->name('bank.create');
+    Route::post('create', [BankController::class, 'store'])->name('bank.store');
+    Route::get('edit/{id}', [BankController::class, 'edit'])->name('bank.edit');
+    Route::put('update/{id}', [BankController::class, 'update'])->name('bank.update');
+    Route::get('delete/{id}', [BankController::class, 'destroy'])->name('bank.delete');
 });
 Route::get('financial/get',[FinancialController::class,'getAllData'])->name('financial.getdata');
 Route::resource('financial', FinancialController::class);

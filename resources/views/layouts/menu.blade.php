@@ -48,9 +48,9 @@
             </li>
             <li class="menu-item-has-children"><a href="javascript:void(0);"><i class="list-icon feather feather-feather"></i> <span class="hide-menu">Banka</span></a>
                 <ul class="list-unstyled sub-menu">
-                    <li><a href="../default/ui-typography.html">Banka Listesi</a>
+                    <li><a href="{{ route('bank.index') }}">Banka Listesi</a>
                     </li>
-                    <li><a href="../default/ui-buttons.html">Yeni Banka Ekle</a>
+                    <li><a href="{{ route('bank.create') }}">Yeni Banka Ekle</a>
                     </li>
 
                 </ul>
