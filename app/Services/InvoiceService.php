@@ -32,6 +32,10 @@ class InvoiceService
     {
         return $this->invoiceRepository->find($id);
     }
+    public function getDataByType($type)
+    {
+        return $this->invoiceRepository->findType($type);
+    }
     public function getDataByIdWithCustomer($id)
     {
         return $this->invoiceRepository->getDataByIdWithCustomer($id);

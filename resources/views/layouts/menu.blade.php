@@ -57,7 +57,7 @@
             </li>
             <li class="menu-item-has-children"><a href="javascript:void(0);"><i class="list-icon feather feather-feather"></i> <span class="hide-menu">İşlemler</span></a>
                 <ul class="list-unstyled sub-menu">
-                    <li><a href="../default/ui-typography.html">Ödeme Yap</a>
+                    <li><a href="{{ route('payment.index') }}">Ödeme Yap</a>
                     </li>
                     <li><a href="../default/ui-buttons.html">Tahsilat Al</a>
                     </li>

@@ -22,6 +22,9 @@ class InvoiceRepository implements InvoiceRepositoryInterface {
     public function find($id) {
         return Invoice::find($id);
     }
+    public function findType($type) {
+        return Invoice::where('invoice_type',$type)->get();
+    }
 
     public function create(Request $request) {
 

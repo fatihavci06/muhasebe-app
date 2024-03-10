@@ -19,6 +19,7 @@ return new class extends Migration
             $table->double('price');
             $table->date('date');
             $table->integer('bank_id');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
