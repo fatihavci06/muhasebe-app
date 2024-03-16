@@ -55,7 +55,7 @@ Route::group(['prefix' => 'payment', 'middleware' => 'auth'], function () {
     Route::post('create', [PaymentController::class, 'store'])->name('payment.store');
     Route::get('edit/{id}', [PaymentController::class, 'edit'])->name('payment.edit');
     Route::put('update/{id}', [PaymentController::class, 'update'])->name('payment.update');
-    Route::get('delete/{id}', [PaymentController::class, 'destroy'])->name('payment.delete');
+    Route::get('delete/{id}', [PaymentController::class, 'destroy'])->name('payment.destroy');
 });
 Route::get('financial/get',[FinancialController::class,'getAllData'])->name('financial.getdata');
 Route::resource('financial', FinancialController::class);

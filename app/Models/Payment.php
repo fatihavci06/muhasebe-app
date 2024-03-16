@@ -17,4 +17,16 @@ class Payment extends Model
         'invoice_id',
         'price'
     ];
+    public function customers()
+    {
+        return $this->hasOne(Customer::class,'id','customer_id');
+    }
+    public function invoices()
+    {
+        return $this->hasOne(Invoice::class,'id','invoice_id');
+    }
+    public function banks()
+    {
+        return $this->hasOne(Bank::class,'id','bank_id');
+    }
 }

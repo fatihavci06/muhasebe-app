@@ -1,4 +1,4 @@
-@section('title', 'Bank List')
+@section('title', 'Payment List')
 @section('css')
     #dataTable_paginate{
     font-size: 16px; /* Numara font büyüklüğü */
@@ -9,7 +9,7 @@
     cursor: pointer;
     }
 @endsection
-@section('module1')Bank @endsection
+@section('module1')Payment @endsection
 @section('module2')List @endsection
 <!-- /.navbar -->
 @extends('layouts.master')
@@ -33,9 +33,9 @@
                     <table class="table table-bordered" id="dataTable">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Iban</th>
-                                <th>Account Number</th>
+                                <th>Type</th>
+                                <th>Customer</th>
+                                <th>Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -58,11 +58,11 @@ $(function() {
         lengthMenu: [[5, 25, 50, -1], [5, 25, 50, "All"]],
         processing: true,
         serverSide: true,
-        ajax: "http://127.0.0.1:8000/bank",
+        ajax: "{{ route('payment.index') }}",
         columns: [
-            { data: 'name', name: 'name' },
-            { data: 'iban', name: 'iban' },
-            { data: 'account_number', name: 'account_number' },
+            { data: 'type', name: 'type' },
+            { data: 'customer', name: 'customer' },
+            { data: 'date', name: 'date' },
             { data: 'action', name: 'action', orderable: false, searchable: false },
         ]
     });
