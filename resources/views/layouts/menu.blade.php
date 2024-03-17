@@ -57,9 +57,9 @@
             </li>
             <li class="menu-item-has-children"><a href="javascript:void(0);"><i class="list-icon feather feather-feather"></i> <span class="hide-menu">İşlemler</span></a>
                 <ul class="list-unstyled sub-menu">
-                    <li><a href="{{ route('payment.create') }}">Ödeme Yap</a>
+                    <li><a href="{{ route('payment.create') }}">Ödeme/Tahsilat Yap</a>
                     </li>
-                    <li><a href="{{ route('payment.index') }}">Tahsilat Al</a>
+                    <li><a href="{{ route('payment.index') }}">Liste</a>
                     </li>
 
                 </ul>

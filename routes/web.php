@@ -66,5 +66,7 @@ Route::get('/invoice/list', [InvoiceController::class, 'list'])->name('invoice.l
 Route::post('/invoice/store', [InvoiceController::class, 'store'])->name('invoice.store');
 Route::get('/invoice/delete/{id?}', [InvoiceController::class, 'destroy'])->name('invoice.destroy');
 Route::get('/invoice/{type?}', [InvoiceController::class, 'index'])->name('invoice');
+Route::get('/invoice-payment}', [InvoiceController::class, 'listWithPaymentType'])->name('invoice.listWithPaymentType');
+
 Route::get('/invoice/edit/{id}', [InvoiceController::class, 'edit'])->name('invoice.edit');
 Route::put('/invoice/update/{id}', [InvoiceController::class, 'update'])->name('invoice.update');

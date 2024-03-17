@@ -32,7 +32,7 @@ class InvoiceService
     {
         return $this->invoiceRepository->find($id);
     }
-    public function getDataByType($type)
+    public function getDataByType($type=1)
     {
         return $this->invoiceRepository->findType($type);
     }

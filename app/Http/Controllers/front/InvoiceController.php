@@ -40,6 +40,12 @@ class InvoiceController extends Controller
 
         //
     }
+    public function listWithPaymentType(Request $request)
+    {
+
+        $invoices= $this->invoiceService->getDataByType($request->payment_type);
+        return response()->json(['invoices'=>$invoices]);
+    }
 
 
     public function list(Request $request)

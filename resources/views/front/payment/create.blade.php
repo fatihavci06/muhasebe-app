@@ -49,15 +49,11 @@
 
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="l0">Fatura Seçiniz</label>
-                                    <select class="form-control" name="invoice_id">
-                                        <option value="">Seçiniz</option>
-                                        @foreach ($invoices as $invoice )
-                                            <option value="{{ $invoice->id }}" @if(old('invoice_id')==$invoice->id) selected @endif> {{  $invoice->invoice_no }}</option>
-
-                                        @endforeach
-                                    </select>
+                                    <label class="col-form-label" for="l0">Fiyat </label>
+                                    <input class="form-control" name="price" value="{{ old('price') }}"
+                                        type="text">
                                 </div>
+
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="l0">İşlem Tarihi </label>
                                     <input class="form-control" name="date" value="{{ old('date', date('Y-m-d') ) }}"
@@ -66,7 +62,7 @@
                             </div>
                             <div class="form-group row ">
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="l0">Gelen Hesap</label>
+                                    <label class="col-form-label" for="l0">Hesap</label>
                                     <select class="form-control" name="bank_id">
                                         <option value="">Seçiniz</option>
                                         @foreach ($banks as $bank )
@@ -77,17 +73,23 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="l0">Ödeme Tipi</label>
-                                    <select class="form-control" name="type">
+                                    <select class="form-control" name="type" id='payment_type'>
                                         <option value="">Seçiniz</option>
                                         <option value="0">Ödeme</option>
                                         <option value="1">Tahsilat</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="col-form-label" for="l0">Fiyat </label>
-                                    <input class="form-control" name="price" value="{{ old('price') }}"
-                                        type="text">
+                                    <label class="col-form-label" for="l0">Fatura Seçiniz</label>
+                                    <select class="form-control" name="invoice_id" id="invoices">
+                                        <option value="">Seçiniz</option>
+                                        @foreach ($invoices as $invoice )
+                                            <option value="{{ $invoice->id }}" @if(old('invoice_id')==$invoice->id) selected @endif> {{  $invoice->invoice_no }}</option>
+
+                                        @endforeach
+                                    </select>
                                 </div>
+
                             </div>
                             <div class="form-group row ">
                                 <div class="col-md-12">
@@ -115,4 +117,9 @@
         </div>
     </div>
 @endsection
+@section('jquery')
+var invoiceRoutes = {
+    listWithPaymentType: "{{ route('invoice.listWithPaymentType') }}",
 
+};
+@endsection

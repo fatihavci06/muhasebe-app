@@ -116,17 +116,31 @@ class PaymentController extends Controller
      */
     public function edit(string $id)
     {
-        return $this->paymentService->getDataByIdWithCustomers($id);
+        $payment= $this->paymentService->getDataByIdWithCustomers($id);
+        $customers=$this->customerService->getAllCustomers();
+        $banks=$this->bankService->getAllData();
+        $invoices= $this->invoiceService->getDataByType($payment->type);
+        return view('front.payment.edit',['customers'=>$customers,'invoices'=>$invoices,'banks'=>$banks,'payment'=>$payment]);
 
-        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(PaymentRequest $request, string $id)
     {
         //
+        try {
+            $isTrue = $this->paymentService->updateData($id,$request);
+            if ($isTrue) {
+                return redirect()->back()->with('success', 'İşlem başarıyla tamamlandı.');
+            } else {
+                return redirect()->back()->with('fail', 'İşlem başarısız.');
+            }
+        } catch (Exception $e) {
+            Log::error(json_encode($e->getMessage()));
+            return response()->json(['success' => false]);
+        }
     }
 
     /**

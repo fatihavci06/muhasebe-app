@@ -266,3 +266,30 @@ $("#invoice_type").change(function () {
     $(".kalem").empty();
 
 });
+
+$("#payment_type").change(function () {
+    var payment_type=$('#payment_type').val();
+    $.ajax({
+        type: 'GET',
+        url: invoiceRoutes.listWithPaymentType,
+        data: {payment_type:payment_type},
+        success: function (response) {
+                $('#invoices').empty();
+                $('#invoices').append($('<option>', {
+                    value: "",
+                    text: "Seçiniz"
+                  }));
+                $.each(response.invoices, function(index, item) {
+                    $('#invoices').append($('<option>', {
+                      value: item.id,
+                      text: item.invoice_no
+                    }));
+                  });
+
+        },
+        error: function (error) {
+            console.log(response);
+        }
+    });
+
+});
