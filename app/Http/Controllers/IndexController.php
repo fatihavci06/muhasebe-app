@@ -2,16 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ReportService;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
     //
-    public function __construct()
+    protected $reportService;
+    public function __construct(ReportService $reportService)
     {
+        $this->reportService=$reportService;
         $this->middleware('auth');
     }
-    public function index(){
-        return view('front.index');
+    public function index()
+    {
+        $data= $this->reportService->getAllReport();
+
+        return view('front.index',['data'=>$data]);
     }
 }

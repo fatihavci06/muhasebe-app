@@ -178,6 +178,8 @@ return [
         App\Providers\BankRepositoryProvider::class,
         App\Providers\PaymentServiceProvider::class,
         App\Providers\PaymentRepositoryProvider::class,
+        App\Providers\ReportRepositoryProvider::class,
+        App\Providers\ReportServiceProvider::class,
     ])->toArray(),
 
     /*

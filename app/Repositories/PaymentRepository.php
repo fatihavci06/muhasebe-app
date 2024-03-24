@@ -39,6 +39,10 @@ class PaymentRepository implements PaymentRepositoryInterface
     {
         return Payment::find($id);
     }
+    public function getDataWithTypeCount($type=1)
+    {
+        return Payment::where('type',1)->count();
+    }
 
     public function create(Request $request)
     {
