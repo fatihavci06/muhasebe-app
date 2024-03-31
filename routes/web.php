@@ -51,7 +51,7 @@ Route::group(['prefix' => 'bank', 'middleware' => 'auth'], function () {
 Route::group(['prefix' => 'payment', 'middleware' => 'auth'], function () {
     // Bu grup içindeki tüm routelar için bir önek ve namespace belirlenir.
     Route::get('/', [PaymentController::class, 'index'])->name('payment.index');
-    Route::get('create', [PaymentController::class, 'create'])->name('payment.create');
+    Route::get('create/{id?}', [PaymentController::class, 'create'])->name('payment.create');
     Route::post('create', [PaymentController::class, 'store'])->name('payment.store');
     Route::get('edit/{id}', [PaymentController::class, 'edit'])->name('payment.edit');
     Route::put('update/{id}', [PaymentController::class, 'update'])->name('payment.update');

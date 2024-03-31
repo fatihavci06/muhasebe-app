@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->integer('type')->default(0)->comment('0 ise ödeme 1 ise tahsilat');
+            $table->integer('type')->default(0)->comment('0 ise tahsilat 1 ise ödeme');
             $table->integer('customer_id');
             $table->integer('invoice_id')->default(0);
             $table->double('price');

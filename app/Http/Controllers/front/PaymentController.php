@@ -4,6 +4,7 @@ namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PaymentRequest;
+use App\Models\InvoiceTransaction;
 use App\Services\BankService;
 use App\Services\CustomerService;
 use App\Services\InvoiceService;
@@ -71,11 +72,18 @@ class PaymentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id=null)
     {
-        $invoices= $this->invoiceService->getDataByType(1);
+
         $customers= $this->customerService->getAllCustomers();
         $banks=$this->bankService->getAllData();
+        if($id!=null){
+            $invoice= $this->invoiceService->getDataById($id);
+            $invoices= $this->invoiceService->getDataByType(0);
+            $total=InvoiceTransaction::where('invvoice_id',$id)->sum('total');
+            return view('front.payment.createwithId',['customers'=>$customers,'total'=>$total,'invoices'=>$invoices,'invoice'=>$invoice,'banks'=>$banks]);
+        }
+        $invoices= $this->invoiceService->getDataByType(1);
         return view('front.payment.create',['customers'=>$customers,'invoices'=>$invoices,'banks'=>$banks]);
         //
     }

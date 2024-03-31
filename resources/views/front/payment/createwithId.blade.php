@@ -42,7 +42,7 @@
                                     <select class="form-control" name="customer_id">
                                         <option value="">Seçiniz</option>
                                         @foreach ($customers as $customer )
-                                            <option value="{{ $customer->id }}" @if(old('customer_id')==$customer->id) selected @endif> {{ $customer->name }} &nbsp {{  $customer->surname }}</option>
+                                            <option value="{{ $customer->id }}" @if(old('customer_id',$invoice->customer_id)==$customer->id) selected @endif> {{ $customer->name }} &nbsp {{  $customer->surname }}</option>
 
                                         @endforeach
                                     </select>
@@ -50,13 +50,13 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="l0">Fiyat </label>
-                                    <input class="form-control" name="price" value="{{ old('price') }}"
+                                    <input class="form-control" name="price" value="{{ old('price', $total) }}"
                                         type="text">
                                 </div>
 
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="l0">İşlem Tarihi </label>
-                                    <input class="form-control" name="date" value="{{ old('date', date('Y-m-d') ) }}"
+                                    <input class="form-control" name="date" value="{{ old('date',$invoice->invoice_date, date('Y-m-d') ) }}"
                                         type="date">
                                 </div>
                             </div>
@@ -76,15 +76,15 @@
                                     <select class="form-control" name="type" id='payment_type'>
                                         <option value="">Seçiniz</option>
                                         <option value="1">Ödeme</option>
-                                        <option value="0">Tahsilat</option>
+                                        <option value="0" @if($invoice->invoice_type==0) selected @endif>Tahsilat</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="col-form-label" for="l0">Fatura Seçiniz</label>
                                     <select class="form-control" name="invoice_id" id="invoices">
-                                        <option value="">Seçiniz</option>
-                                        @foreach ($invoices as $invoice )
-                                            <option value="{{ $invoice->id }}" @if(old('invoice_id')==$invoice->id) selected @endif> {{  $invoice->invoice_no }}</option>
+                                        <option value="">Seçiniz {{ $invoice->id }}</option>
+                                        @foreach ($invoices as $i )
+                                            <option value="{{ $i->id }}" @if(old('invoice_id',$invoice->id)==$i->id) selected @endif> {{  $i->invoice_no }}</option>
 
                                         @endforeach
                                     </select>
