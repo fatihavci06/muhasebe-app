@@ -61,38 +61,16 @@
                 </li>
             </ul>
             <!-- /.navbar-left -->
-            <!-- Search Form -->
-            <form class="navbar-search d-none d-sm-block" role="search"><i
-                    class="feather feather-search list-icon"></i>
-                <input type="search" class="search-query" placeholder="Search anything..."> <a
-                    href="javascript:void(0);" class="remove-focus"><i class="feather feather-x"></i></a>
-            </form>
+
             <!-- /.navbar-search -->
             <div class="spacer"></div>
-            <!-- Button: Create New -->
-            <div class="btn-list dropdown d-none d-md-flex mr-4 mr-0-rtl ml-4-rtl"><a href="javascript:void(0);"
-                    class="btn btn-primary dropdown-toggle ripple" data-toggle="dropdown"><i
-                        class="feather feather-plus list-icon"></i> Create New</a>
-                <div class="dropdown-menu dropdown-left animated flipInY"><span class="dropdown-header">Create new
-                        ...</span> <a class="dropdown-item" href="#">Projects</a> <a class="dropdown-item"
-                        href="#">User Profile</a> <a class="dropdown-item" href="#"><span
-                            class="d-flex align-items-end"><span class="flex-1">To-do Item</span> <span
-                                class="badge badge-pill bg-primary-contrast">7</span> </span></a>
-                    <a class="dropdown-item" href="#"><span class="d-flex align-items-end"><span
-                                class="flex-1">Mail</span> <span
-                                class="badge badge-pill bg-color-scheme-contrast">23</span></span>
-                    </a>
-                    <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><span
-                            class="d-flex align-items-center"><span class="flex-1">Settings</span> <i
-                                class="feather feather-settings list-icon icon-muted"></i></span></a>
-                </div>
-            </div>
+
             <!-- /.btn-list -->
             <!-- User Image with Dropdown -->
             <ul class="nav navbar-nav">
                 <li class="dropdown"><a href="javascript:void(0);" class="dropdown-toggle ripple"
                         data-toggle="dropdown"><span class="avatar thumb-xs2"><img
-                                src="{{ asset('thema/') }}/assets/demo/users/user1.jpg" class="rounded-circle"
+                                src="{{Storage::url(auth()->user()->photo)}}" class="rounded-circle"
                                 alt=""> <i class="feather feather-chevron-down list-icon"></i></span></a>
                     <div class="dropdown-menu dropdown-left dropdown-card dropdown-card-profile animated flipInY">
                         <div class="card">
@@ -106,14 +84,10 @@
                                 </a>
                             </header>
                             <ul class="list-unstyled card-body">
-                                <li><a href="#"><span><span class="align-middle">Manage
-                                                Accounts</span></span></a>
+                                <li><a href="{{ route('profile.edit') }}"><span><span class="align-middle">Profil Düzenle</span></span></a>
                                 </li>
-                                <li><a href="#"><span><span class="align-middle">Change
-                                                Password</span></span></a>
-                                </li>
-                                <li><a href="#"><span><span class="align-middle">Check Inbox</span></span></a>
-                                </li>
+
+
                                 <li><span><span class="align-middle">
                                             <form method="POST" action="{{ route('logout') }}">@csrf<button>Sign
                                                     Out</button></form>

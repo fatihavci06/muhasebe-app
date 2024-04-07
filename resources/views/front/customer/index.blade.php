@@ -38,6 +38,9 @@
                                 <th>Name</th>
                                 <th>Surname</th>
                                 <th>Company</th>
+                                <th>Income</th>
+                                <th>Expense</th>
+                                <th>Balance</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -66,6 +69,9 @@ $(function() {
             { data: 'name', name: 'name' },
             { data: 'surname', name: 'surname' },
             { data: 'company_name', name: 'company_name' },
+            { data: 'income', name: 'income' },
+            { data: 'expense', name: 'expense' },
+            { data: 'balance', name: 'balance' },
             { data: 'action', name: 'action', orderable: false, searchable: false },
         ]
     });

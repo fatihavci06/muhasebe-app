@@ -5,6 +5,7 @@ use App\Http\Controllers\front\CustomerController;
 use App\Http\Controllers\front\FinancialController;
 use App\Http\Controllers\front\InvoiceController;
 use App\Http\Controllers\front\PaymentController;
+use App\Http\Controllers\front\ProfileController;
 use App\Http\Controllers\IndexController;
 use App\Models\FinancialStatement;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,7 @@ Auth::routes();
 Route::group(['prefix' => 'customer', 'middleware' => 'auth'], function () {
     // Bu grup içindeki tüm routelar için bir önek ve namespace belirlenir.
     Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
+    Route::get('extre/{id}', [CustomerController::class, 'extre'])->name('customer.extre');
     Route::get('create', [CustomerController::class, 'create'])->name('customer.create');
     Route::post('create', [CustomerController::class, 'store'])->name('customer.store');
     Route::get('edit/{id}', [CustomerController::class, 'edit'])->name('customer.edit');
@@ -70,3 +72,7 @@ Route::get('/invoice-payment}', [InvoiceController::class, 'listWithPaymentType'
 
 Route::get('/invoice/edit/{id}', [InvoiceController::class, 'edit'])->name('invoice.edit');
 Route::put('/invoice/update/{id}', [InvoiceController::class, 'update'])->name('invoice.update');
+
+
+Route::get('profile-edit',[ProfileController::class,'edit'])->name('profile.edit');
+Route::put('profile-update',[ProfileController::class,'update'])->name('profile.update');

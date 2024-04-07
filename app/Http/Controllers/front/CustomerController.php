@@ -26,16 +26,30 @@ class CustomerController extends Controller
     {
         //
 
+
         if ($request->ajax()) {
             $data = $this->customerService->getAllCustomers();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = '<a href="' . route("customer.edit", $data->id) . '" class="edit btn btn-primary btn-sm">Düzenle</a>';
-                    $btn .= ' <a href="#" class="delete btn btn-danger btn-sm" onclick="silmedenSor(\'' . route('customer.delete', ['id' => $data->id]) . '\'); return false;">Sil</a>';
+                    $btn .= '<a href="' . route("customer.extre", $data->id) . '" class="extre btn btn-success btn-sm ml-2">Ekstre</a>';
+                    $btn .= ' <a href="#" class="delete btn btn-danger btn-sm ml-2" onclick="silmedenSor(\'' . route('customer.delete', ['id' => $data->id]) . '\'); return false;">Sil</a>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('balance', function($data){
+
+
+
+                    if($data->balance>0){
+                        $btn ='<b >'.$data->balance.' TL</b>';
+                     }
+                     else{
+                         $btn ='<b style="color: red;">'.$data->balance.'</b>';
+                     }
+                     return $btn;
+             })
+                ->rawColumns(['action','balance'])
                 ->make(true);
         }
         return view('front.customer.index');
@@ -48,6 +62,12 @@ class CustomerController extends Controller
     {
 
         return view('front.customer.create');
+        //
+    }
+    public function extre($id)
+    {
+        $customer=$this->customerService->getCustomerById($id);
+        return view('front.customer.extre',['customer'=>$customer]);
         //
     }
 

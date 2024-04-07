@@ -4,11 +4,11 @@
         <div class="col-sm-12 text-center p-0 clearfix">
             <div class="d-inline-block pos-relative mr-b-10">
                 <figure class="thumb-sm mr-b-0 user--online">
-                    <img src="{{ asset('thema/') }}/assets/demo/users/user1.jpg" class="rounded-circle" alt="">
-                </figure><a href="page-profile.html" class="text-muted side-user-link"><i class="feather feather-settings list-icon"></i></a>
+                    <img src="{{Storage::url(auth()->user()->photo)}}" class="rounded-circle" alt="">
+                </figure><a href="{{ route('profile.edit') }}" class="text-muted side-user-link"><i class="feather feather-settings list-icon"></i></a>
             </div>
             <!-- /.d-inline-block -->
-            <div class="lh-14 mr-t-5"><a href="page-profile.html" class="hide-menu mt-3 mb-0 side-user-heading fw-500">{{ Auth::user()->name }}</a>
+            <div class="lh-14 mr-t-5"><a href="{{ route('profile.edit') }}" class="hide-menu mt-3 mb-0 side-user-heading fw-500">{{ Auth::user()->name }}</a>
                 <br><small class="hide-menu">Developer</small>
             </div>
         </div>
