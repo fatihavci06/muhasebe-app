@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 12 Oca 2024, 08:34:01
--- Sunucu sürümü: 10.4.28-MariaDB
--- PHP Sürümü: 8.1.17
+-- Üretim Zamanı: 16 Nis 2024, 21:50:53
+-- Sunucu sürümü: 10.4.24-MariaDB
+-- PHP Sürümü: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,12 +29,20 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `banks` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `iban` varchar(255) DEFAULT NULL,
-  `account_number` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `iban` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `account_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Tablo döküm verisi `banks`
+--
+
+INSERT INTO `banks` (`id`, `name`, `iban`, `account_number`, `created_at`, `updated_at`) VALUES
+(1, 'Ziraat Bnk', 'tr32886886698999893333x', '1233213333x', NULL, '2024-03-01 04:52:00'),
+(4, 'Ziraat Katılım', 'tr355437745', '64997545', '2024-02-28 12:03:07', '2024-02-28 12:03:07');
 
 -- --------------------------------------------------------
 
@@ -45,17 +53,17 @@ CREATE TABLE `banks` (
 CREATE TABLE `customers` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `customer_type` int(11) NOT NULL DEFAULT 0,
-  `name` varchar(255) DEFAULT NULL,
-  `surname` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `surname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `tc_no` bigint(11) DEFAULT NULL,
-  `adress` varchar(255) DEFAULT NULL,
-  `number` varchar(255) DEFAULT NULL,
-  `company_name` varchar(255) DEFAULT NULL,
-  `tax_number` varchar(255) DEFAULT NULL,
-  `tax_office` varchar(255) DEFAULT NULL,
+  `adress` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `company_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tax_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tax_office` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -65,8 +73,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `customer_type`, `name`, `surname`, `email`, `photo`, `birthday`, `tc_no`, `adress`, `number`, `company_name`, `tax_number`, `tax_office`, `created_at`, `updated_at`) VALUES
-(33, 0, '34543', '343', NULL, 'images/nuHxk0hxqryPUefOosBTRTUmtfKHyYsZ9DH5gr8d.png', '2023-12-08', 3453, '34', NULL, NULL, NULL, NULL, '2023-12-11 03:54:41', '2023-12-11 03:54:41'),
-(35, 1, 'test', 'test', '66fatihavci@gmail.com', 'images/YFFFtMw0LbwUT4ns8rTFyRIfbiP4YtBjO8vBeVxf.jpg', '2024-01-30', 24324, '34', '1', 'netgsm', '2342', '2342', '2024-01-10 08:24:14', '2024-01-10 08:24:14');
+(33, 0, 'fatih', 'avcı', NULL, 'images/ToiIbSGEXkIwoFu79gy8ZVi69ku28MVmhimqXn3w.jpg', '2023-12-08', 3453, '34', NULL, NULL, NULL, NULL, '2023-12-11 03:54:41', '2024-04-07 12:06:02'),
+(35, 1, 'esmanur', 'avcı', '66fatihavci@gmail.com', 'images/8t2TdwB6ZPY5fJGHNX1a0E3hs9epL9ZFF6nxpril.jpg', '2024-01-30', 24324, '34', '1', 'netgsm', '2342', '2342', '2024-01-10 08:24:14', '2024-04-06 11:03:32');
 
 -- --------------------------------------------------------
 
@@ -76,11 +84,11 @@ INSERT INTO `customers` (`id`, `customer_type`, `name`, `surname`, `email`, `pho
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -93,7 +101,7 @@ CREATE TABLE `failed_jobs` (
 CREATE TABLE `financial_statements` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `type` int(11) NOT NULL DEFAULT 0,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `kdv` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -104,8 +112,11 @@ CREATE TABLE `financial_statements` (
 --
 
 INSERT INTO `financial_statements` (`id`, `type`, `name`, `kdv`, `created_at`, `updated_at`) VALUES
-(10, 0, 'kalem 1', 18, '2024-01-10 11:28:48', '2024-01-10 11:28:48'),
-(11, 1, 'kalem2', 20, '2024-01-10 11:28:56', '2024-01-12 03:11:18');
+(10, 0, 'kalem 12', 18, '2024-01-10 11:28:48', '2024-01-23 16:29:28'),
+(12, 1, 'gider kalem', 22, '2024-01-20 16:14:26', '2024-01-20 16:14:26'),
+(13, 1, 'gider kalem 2', 23, '2024-01-20 16:14:47', '2024-01-20 16:14:47'),
+(14, 0, 'kalem 2', 19, '2024-01-20 16:15:05', '2024-01-20 16:15:05'),
+(15, 0, '22', 1, '2024-01-23 16:30:17', '2024-01-23 16:30:17');
 
 -- --------------------------------------------------------
 
@@ -116,7 +127,7 @@ INSERT INTO `financial_statements` (`id`, `type`, `name`, `kdv`, `created_at`, `
 CREATE TABLE `invoices` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `invoice_type` int(11) NOT NULL DEFAULT 0 COMMENT '0 ise gelir , 1 ise gider',
-  `invoice_no` varchar(255) NOT NULL,
+  `invoice_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `customer_id` int(11) NOT NULL,
   `invoice_date` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -128,18 +139,21 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`id`, `invoice_type`, `invoice_no`, `customer_id`, `invoice_date`, `created_at`, `updated_at`) VALUES
-(26, 0, '123', 35, '2024-01-11', '2024-01-11 08:24:27', '2024-01-11 08:24:27'),
-(28, 0, '132123', 35, '2024-01-11', '2024-01-11 08:32:09', '2024-01-11 08:32:09'),
-(31, 0, '3', 35, '2024-01-11', '2024-01-11 08:36:02', '2024-01-11 08:36:02'),
-(33, 0, '12', 33, '2024-01-11', '2024-01-11 08:36:48', '2024-01-11 08:36:48'),
-(34, 0, '4554', 33, '2024-01-11', '2024-01-11 08:39:04', '2024-01-11 08:39:04'),
-(35, 0, '12', 33, '2024-01-11', '2024-01-11 08:42:39', '2024-01-11 08:42:39'),
-(36, 0, '1231', 35, '2024-01-11', '2024-01-11 08:42:49', '2024-01-11 08:42:49'),
-(37, 0, '1231', 33, '2024-01-11', '2024-01-11 08:43:15', '2024-01-11 08:43:15'),
-(38, 0, '112', 33, '2024-01-19', '2024-01-12 03:12:11', '2024-01-12 03:12:11'),
-(39, 0, '11', 35, '2024-01-12', '2024-01-12 04:08:54', '2024-01-12 04:08:54'),
-(40, 0, '11', 35, '2024-01-12', '2024-01-12 04:11:40', '2024-01-12 04:11:40'),
-(41, 0, '123', 33, '2024-01-12', '2024-01-12 04:32:54', '2024-01-12 04:32:54');
+(46, 1, '1233334', 33, '2024-01-02', '2024-01-20 15:45:23', '2024-02-04 14:45:05'),
+(47, 0, '6647', 33, '2024-01-20', '2024-01-20 15:56:31', '2024-02-04 15:16:30'),
+(48, 1, '1', 33, '2024-01-20', '2024-01-20 15:58:01', '2024-01-20 15:58:01'),
+(50, 1, '13254456', 33, '2024-01-20', '2024-01-20 18:03:27', '2024-01-20 18:03:27'),
+(51, 1, '13254456', 33, '2024-01-20', '2024-01-28 12:28:06', '2024-01-28 12:28:06'),
+(52, 1, '13254456', 33, '2024-01-20', '2024-01-28 12:28:22', '2024-01-28 12:28:22'),
+(53, 1, '13254456', 33, '2024-01-20', '2024-01-28 12:29:15', '2024-01-28 12:29:15'),
+(65, 0, '2321', 35, '2024-02-04', '2024-02-04 15:24:31', '2024-02-04 15:24:31'),
+(66, 0, '2321', 35, '2024-02-04', '2024-02-04 15:24:40', '2024-02-04 15:24:40'),
+(67, 0, '2321', 35, '2024-02-04', '2024-02-04 15:24:52', '2024-02-04 15:24:52'),
+(68, 0, '2321', 35, '2024-02-04', '2024-02-04 15:25:15', '2024-02-04 15:25:15'),
+(69, 1, '1111', 35, '2024-02-04', '2024-02-04 15:26:24', '2024-02-04 15:26:24'),
+(70, 1, '111', 35, '2024-02-04', '2024-02-04 15:28:58', '2024-02-04 15:28:58'),
+(71, 0, '2222', 33, '2024-02-04', '2024-02-04 15:29:22', '2024-02-04 15:29:22'),
+(72, 0, '2222', 35, '2024-02-04', '2024-02-04 15:30:15', '2024-02-04 15:30:15');
 
 -- --------------------------------------------------------
 
@@ -149,7 +163,6 @@ INSERT INTO `invoices` (`id`, `invoice_type`, `invoice_no`, `customer_id`, `invo
 
 CREATE TABLE `invoice_transactions` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `invvoice_id` int(11) DEFAULT NULL,
   `pencil_id` int(11) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `price` double DEFAULT NULL,
@@ -157,6 +170,7 @@ CREATE TABLE `invoice_transactions` (
   `subtotal` double DEFAULT NULL,
   `kdvtotal` double DEFAULT NULL,
   `total` double DEFAULT NULL,
+  `invvoice_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -165,26 +179,24 @@ CREATE TABLE `invoice_transactions` (
 -- Tablo döküm verisi `invoice_transactions`
 --
 
-INSERT INTO `invoice_transactions` (`id`, `invvoice_id`, `pencil_id`, `amount`, `price`, `kdv`, `subtotal`, `kdvtotal`, `total`, `created_at`, `updated_at`) VALUES
-(41, 26, 10, 3, 4, 18, 12, 2.16, 14.16, '2024-01-11 08:24:27', '2024-01-11 08:24:27'),
-(42, 28, 10, 21313, 13123, 18, 279690499, 50344289.82, 330034788.82, '2024-01-11 08:32:09', '2024-01-11 08:32:09'),
-(43, 28, 11, 42, 34, 20, 1428, 285.6, 1713.6, '2024-01-11 08:32:09', '2024-01-11 08:32:09'),
-(44, 31, 10, NULL, NULL, 18, 0, 0, 0, '2024-01-11 08:36:02', '2024-01-11 08:36:02'),
-(45, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-11 08:36:48', '2024-01-11 08:36:48'),
-(46, 34, 10, NULL, NULL, 18, 0, 0, 0, '2024-01-11 08:39:04', '2024-01-11 08:39:04'),
-(47, 34, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-11 08:39:04', '2024-01-11 08:39:04'),
-(48, 34, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-11 08:39:04', '2024-01-11 08:39:04'),
-(49, 34, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-11 08:39:04', '2024-01-11 08:39:04'),
-(50, 34, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-11 08:39:04', '2024-01-11 08:39:04'),
-(51, 34, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-11 08:39:04', '2024-01-11 08:39:04'),
-(52, 35, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-01-11 08:42:39', '2024-01-11 08:42:39'),
-(53, 36, 10, NULL, NULL, 18, 0, 0, 0, '2024-01-11 08:42:49', '2024-01-11 08:42:49'),
-(54, 36, 11, NULL, NULL, 20, 0, 0, 0, '2024-01-11 08:42:49', '2024-01-11 08:42:49'),
-(55, 37, 10, 23, 3, 18, 69, 12.42, 81.42, '2024-01-11 08:43:15', '2024-01-11 08:43:15'),
-(56, 38, 11, 3, 4, 20, 12, 2.4, 14.4, '2024-01-12 03:12:11', '2024-01-12 03:12:11'),
-(57, 39, 10, NULL, NULL, 18, 0, 0, 0, '2024-01-12 04:08:54', '2024-01-12 04:08:54'),
-(58, 40, 10, NULL, NULL, 18, 0, 0, 0, '2024-01-12 04:11:40', '2024-01-12 04:11:40'),
-(59, 41, 10, 2, 3, 18, 6, 1.08, 7.08, '2024-01-12 04:32:54', '2024-01-12 04:32:54');
+INSERT INTO `invoice_transactions` (`id`, `pencil_id`, `amount`, `price`, `kdv`, `subtotal`, `kdvtotal`, `total`, `invvoice_id`, `created_at`, `updated_at`) VALUES
+(8, 10, 2, 3, 18, 6, 1.08, 7.08, 48, '2024-01-20 15:58:01', '2024-01-20 15:58:01'),
+(11, 13, 2, 3, 23, 6, 1.38, 7.38, 50, '2024-01-20 18:03:27', '2024-01-20 18:03:27'),
+(12, 13, 2, 3, 6, 2, 1.38, 7.38, 51, '2024-01-28 12:28:06', '2024-01-28 12:28:06'),
+(13, 12, 2, 33, 22, 66, 14.52, 80.52, 47, '2024-01-28 12:28:06', '2024-01-28 12:28:06'),
+(14, 13, 2, 3, 6, 2, 1.38, 7.38, 52, '2024-01-28 12:28:22', '2024-01-28 12:28:22'),
+(15, 12, 2, 33, 22, 66, 14.52, 80.52, 52, '2024-01-28 12:28:22', '2024-01-28 12:28:22'),
+(134, 13, 2, 3, 2, 2, 1.38, 7.38, 46, '2024-02-04 15:03:22', '2024-02-04 15:03:22'),
+(135, 12, NULL, NULL, NULL, NULL, 0, 0, 46, '2024-02-04 15:03:22', '2024-02-04 15:03:22'),
+(139, 13, 2, 3, 2, 2, 1.38, 7.38, 53, '2024-02-04 15:11:37', '2024-02-04 15:11:37'),
+(140, 13, 3, 2, 23, 6, 1.38, 7.38, 53, '2024-02-04 15:11:37', '2024-02-04 15:11:37'),
+(145, 10, 2, 3, 18, 6, 1.08, 7.08, 47, '2024-02-04 15:16:30', '2024-02-04 15:16:30'),
+(151, 14, NULL, NULL, 19, 0, 0, 0, 65, '2024-02-04 15:24:31', '2024-02-04 15:24:31'),
+(152, 14, 2, 3, 19, 6, 1.14, 7.14, 66, '2024-02-04 15:24:40', '2024-02-04 15:24:40'),
+(153, 14, 2, 3, 19, 6, 1.14, 7.14, 67, '2024-02-04 15:24:52', '2024-02-04 15:24:52'),
+(155, 14, NULL, NULL, 19, 0, 0, 0, 71, '2024-02-04 15:29:22', '2024-02-04 15:29:22'),
+(156, 14, 1, 1, 19, 1, 0.19, 1.19, 72, '2024-02-04 15:30:15', '2024-02-04 15:30:15'),
+(157, 12, 2, 33, 0, 66, 0, 66, 70, '2024-04-06 20:19:56', '2024-04-06 20:19:56');
 
 -- --------------------------------------------------------
 
@@ -194,7 +206,7 @@ INSERT INTO `invoice_transactions` (`id`, `invvoice_id`, `pencil_id`, `amount`, 
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -210,11 +222,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (5, '2023_11_25_192300_create_customers_table', 1),
 (6, '2023_11_25_192934_create_banks_table', 1),
 (7, '2023_11_25_193335_create_invoices_table', 1),
-(8, '2023_11_25_193639_create_invoice_transactions_table', 1),
 (9, '2023_11_25_193921_create_pencils_table', 1),
 (10, '2023_11_25_194152_create_payments_table', 1),
 (11, '2014_10_12_100000_create_password_resets_table', 2),
-(12, '2023_12_16_135652_create_financial_statements_table', 2);
+(12, '2023_12_16_135652_create_financial_statements_table', 2),
+(13, '2023_11_25_193639_create_invoice_transactions_table', 3),
+(14, '2024_04_06_132505_add_photo_to_users_table', 4);
 
 -- --------------------------------------------------------
 
@@ -223,8 +236,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -235,8 +248,8 @@ CREATE TABLE `password_resets` (
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -248,15 +261,31 @@ CREATE TABLE `password_reset_tokens` (
 
 CREATE TABLE `payments` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `type` int(11) NOT NULL DEFAULT 0 COMMENT '0 ise ödeme 1 ise tahsilat',
+  `type` int(11) NOT NULL DEFAULT 0 COMMENT '1 ise ödeme 0 ise tahsilat',
   `customer_id` int(11) NOT NULL,
   `invoice_id` int(11) NOT NULL DEFAULT 0,
   `price` double NOT NULL,
   `date` date NOT NULL,
   `bank_id` int(11) NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Tablo döküm verisi `payments`
+--
+
+INSERT INTO `payments` (`id`, `type`, `customer_id`, `invoice_id`, `price`, `date`, `bank_id`, `description`, `created_at`, `updated_at`) VALUES
+(8, 0, 35, 67, 22, '2024-03-22', 4, 'lll', '2024-03-31 06:43:28', '2024-03-31 06:43:28'),
+(9, 0, 33, 67, 666, '2024-03-31', 1, NULL, '2024-03-31 06:43:46', '2024-03-31 06:43:46'),
+(10, 0, 35, 47, 2323, '2024-03-31', 1, NULL, '2024-03-31 06:44:30', '2024-03-31 06:44:30'),
+(11, 0, 35, 66, 22, '2024-02-04', 1, NULL, '2024-03-31 08:11:46', '2024-03-31 08:11:46'),
+(12, 0, 35, 65, 2323, '2024-02-04', 1, NULL, '2024-03-31 08:12:00', '2024-03-31 08:12:00'),
+(13, 1, 33, 52, 20000, '2024-03-31', 1, '222', '2024-03-31 08:16:07', '2024-03-31 08:16:07'),
+(14, 1, 33, 48, 2, '2024-03-31', 1, NULL, '2024-03-31 08:16:36', '2024-03-31 08:16:36'),
+(15, 0, 33, 71, 3.25, '2024-02-04', 4, '2', '2024-03-31 08:26:55', '2024-03-31 08:26:55'),
+(16, 1, 33, 46, 2.34, '2024-03-31', 4, 's', '2024-03-31 08:27:23', '2024-03-31 08:27:23');
 
 -- --------------------------------------------------------
 
@@ -267,7 +296,7 @@ CREATE TABLE `payments` (
 CREATE TABLE `pencils` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `pencil_type` int(11) NOT NULL DEFAULT 0,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `kdv` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -281,11 +310,11 @@ CREATE TABLE `pencils` (
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `token` varchar(64) NOT NULL,
-  `abilities` text DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -300,23 +329,24 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Tablo döküm verisi `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Custom User', 'custom@example.com', NULL, '$2y$12$EQ9B3WyPuMvcSjMbP2BKxeT3aRjGAdwKaxUA8MaZFXDCZKL3a6uw6', NULL, NULL, NULL),
-(2, 'Fatih User', 'fatih@test.com', NULL, '$2y$12$9EJNehkqAlvUP87pM54uLOgWHvd9AWKvCPGlm3Gkx8zkJMLLt8g1y', NULL, NULL, NULL),
-(3, 'JOHN DOE', 'John Doe', NULL, '$2y$12$5AA/fEzll1uj4HFRsQ9LtuWMW/cXOzpKqxahWEKtvV4jWWV95Ou8S', NULL, '2023-12-12 04:50:20', '2023-12-12 04:50:20');
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `photo`) VALUES
+(1, 'Custom User', 'custom@example.com', NULL, '$2y$12$EQ9B3WyPuMvcSjMbP2BKxeT3aRjGAdwKaxUA8MaZFXDCZKL3a6uw6', NULL, NULL, NULL, NULL),
+(2, 'fatih avcı', 'fatih@test.com', NULL, '$2y$12$FeY7g8.B/mUZfWhEiHD/3uZoBWp3BqG7YZKCs1NYXcvSxj8609tiW', NULL, NULL, '2024-04-06 11:11:44', 'photo/H0fTp2LXgDdcccIcDRKPxJBNMHSi3wxJEixVyyDp.jpg'),
+(3, 'JOHN DOE', 'John Doe', NULL, '$2y$12$5AA/fEzll1uj4HFRsQ9LtuWMW/cXOzpKqxahWEKtvV4jWWV95Ou8S', NULL, '2023-12-12 04:50:20', '2023-12-12 04:50:20', NULL);
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -357,7 +387,8 @@ ALTER TABLE `invoices`
 -- Tablo için indeksler `invoice_transactions`
 --
 ALTER TABLE `invoice_transactions`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `invoice_transactions_invvoice_id_foreign` (`invvoice_id`);
 
 --
 -- Tablo için indeksler `migrations`
@@ -412,7 +443,7 @@ ALTER TABLE `users`
 -- Tablo için AUTO_INCREMENT değeri `banks`
 --
 ALTER TABLE `banks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `customers`
@@ -430,31 +461,31 @@ ALTER TABLE `failed_jobs`
 -- Tablo için AUTO_INCREMENT değeri `financial_statements`
 --
 ALTER TABLE `financial_statements`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `invoice_transactions`
 --
 ALTER TABLE `invoice_transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `pencils`
@@ -473,6 +504,16 @@ ALTER TABLE `personal_access_tokens`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Dökümü yapılmış tablolar için kısıtlamalar
+--
+
+--
+-- Tablo kısıtlamaları `invoice_transactions`
+--
+ALTER TABLE `invoice_transactions`
+  ADD CONSTRAINT `invoice_transactions_invvoice_id_foreign` FOREIGN KEY (`invvoice_id`) REFERENCES `invoices` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
