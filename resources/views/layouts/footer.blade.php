@@ -20,11 +20,10 @@
 <script src="{{ asset('thema/') }}/assets/vendors/theme-widgets/widgets.js"></script>
 
 <script src="{{ asset('thema/') }}/assets/js/theme.js"></script>
-<script src="{{ asset('thema/') }}/assets/js/custom.js"></script>
 <script src="{{asset('thema/')}}/assets/js/project.js"></script>
 @yield('includes')
 <script>
-    @yield('jquery')
+ @yield('jquery')
 </script>
 
 </body>

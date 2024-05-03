@@ -7,5 +7,7 @@ interface ReportRepositoryInterface {
     public function getPaymentWithTypeCount($type);
     public function getPaymentWithTypeSum($type);
 
+    public function getAllLog();
+
 }
 

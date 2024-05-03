@@ -1,21 +1,29 @@
 
 function addRow() {
     var selectedValue = $("#invoice_type").val();
-    if(selectedValue==''){
+    if (selectedValue == '') {
         alert('Tip Seçiniz...');
         return false;
     }
     $.ajax({
         type: 'GET',
         url: invoiceRoutes.financialGetData,
-        data: {type:selectedValue},
+        data: { type: selectedValue },
         success: function (response) {
 
-            console.log(response.data);
-            var option='';
-            $.each(response.data, function(index, item) {
-                option=option + '<option  data-kdv="'+item.kdv+'"value="'+item.id+'">'+item.name+'</option>';
-               console.log(option);
+            console.log(response.products);
+            var option = '';
+            $.each(response.data, function (index, item) {
+                option = option + '<option  data-kdv="' + item.kdv + '"value="' + item.id + '">' + item.name + '</option>';
+
+
+                // Option'u selectBox'a ekleyin
+
+            });
+            var productList = '';
+            $.each(response.products, function (key, val) {
+                productList = productList + '<option  value="' + val.id + '">' + val.name + '</option>';
+                console.log(productList);
 
                 // Option'u selectBox'a ekleyin
 
@@ -23,10 +31,13 @@ function addRow() {
             var newRowHtml = `
             <tr class="kalem">
                 <td style="width:15%;"><select class="form-control" id="kalemSec" onchange="setKDV(this)" name="kalem[]">
-                        <option value="">Seçiniz</option>`+option+`
+                        <option value="">Seçiniz</option>`+ option + `
                     </select></td>
-                <td><input type="text" class="form-control" name="urun[]"></td>
-                <td><input type="text" class="form-control" name="adet[]" oninput="calculateTotal(this)"></td>
+                <td style="width:15%;"><select class="form-control" id="urun"  name="urun[]">
+                <option value="">Seçiniz</option>`+ productList + `
+            </select></td>
+             value="{{ old('quantity') }}" min="0"
+                <td><input step="any" type="number" min="0"class="form-control" name="adet[]"  oninput="calculateTotal(this)"></td>
                 <td><input type="text" class="form-control" name="tutar[]" oninput="calculateTotal(this)"></td>
                 <td><input type="text" class="form-control" name="toplamTutar[]"></td>
                 <td><input type="text" class="form-control" name="kdv[]" oninput="calculateTotal(this)"></td>
@@ -37,8 +48,8 @@ function addRow() {
             </tr>
             `;
 
-                // Dinamik satırı tabloya ekle
-                $('#dynamic-form-body').append(newRowHtml);
+            // Dinamik satırı tabloya ekle
+            $('#dynamic-form-body').append(newRowHtml);
 
 
         },
@@ -224,7 +235,7 @@ $("#updateInvoice").on("click", function () {
             $('#success').html(response.data);
             setTimeout(function () {
                 $("#success").fadeOut();
-                $("#updateInvoice").fadeOut("slow", function(){
+                $("#updateInvoice").fadeOut("slow", function () {
                     $(this).fadeIn();
                 });
             }, 4000);
@@ -268,23 +279,23 @@ $("#invoice_type").change(function () {
 });
 
 $("#payment_type").change(function () {
-    var payment_type=$('#payment_type').val();
+    var payment_type = $('#payment_type').val();
     $.ajax({
         type: 'GET',
         url: invoiceRoutes.listWithPaymentType,
-        data: {payment_type:payment_type},
+        data: { payment_type: payment_type },
         success: function (response) {
-                $('#invoices').empty();
+            $('#invoices').empty();
+            $('#invoices').append($('<option>', {
+                value: "",
+                text: "Seçiniz"
+            }));
+            $.each(response.invoices, function (index, item) {
                 $('#invoices').append($('<option>', {
-                    value: "",
-                    text: "Seçiniz"
-                  }));
-                $.each(response.invoices, function(index, item) {
-                    $('#invoices').append($('<option>', {
-                      value: item.id,
-                      text: item.invoice_no
-                    }));
-                  });
+                    value: item.id,
+                    text: item.invoice_no
+                }));
+            });
 
         },
         error: function (error) {
@@ -292,4 +303,174 @@ $("#payment_type").change(function () {
         }
     });
 
+});
+
+// Yeni ürün ekle butonuna tıklandığında
+$("#addProductBtn").click(function () {
+    // Yeni satırı oluştur
+    var newRow = '<tr class="dynamic-row">' +
+        '<td><input type="text" name="name[]" class="form-control product-name" /></td>' +
+        '<td><input type="number" name="quantity[]" class="form-control product-quantity" /></td>' +
+        '<td><input type="number" name="price[]" class="form-control product-price" /></td>' +
+        '<td>0</td>' +
+        '<td><button type="button" class="btn btn-danger delete-row">Sil</button></td>' +
+        '</tr>';
+    // Yeni satırı tabloya ekle
+    $("#productTableBody").append(newRow);
+});
+
+$(document).on('click', '#deleteAllProduct', function () {
+
+    $(".dynamic-row").remove();
+    calculateTotal();
+});
+// Satır sil butonuna tıklandığında
+$(document).on('click', '.delete-row', function () {
+
+
+
+    // Tıklanan satırı sil
+    $(this).closest('tr').remove();
+    // Toplamı hesapla
+    calculateTotal();
+});
+
+// Ürün fiyatı veya adet değiştiğinde
+$(document).on('input', '.product-quantity, .product-price', function () {
+    var row = $(this).closest('tr');
+    var quantity = parseFloat(row.find('.product-quantity').val());
+    var price = parseFloat(row.find('.product-price').val());
+    var total = quantity * price || 0;
+    row.find('td:nth-child(4)').text(total.toFixed(2));
+    // Toplamı hesapla
+    calculateTotal();
+});
+
+// Toplamı hesapla
+function calculateTotal() {
+    var totalValue = 0;
+    var totalQuantity = 0;
+    $("#productTableBody tr").each(function () {
+        var rowTotal = parseFloat($(this).find('td:nth-child(4)').text());
+        totalValue += isNaN(rowTotal) ? 0 : rowTotal;
+
+        var rowQuantity = parseFloat($(this).find('.product-quantity').val());
+        totalQuantity += isNaN(rowQuantity) ? 0 : rowQuantity;
+    });
+    $("#totalValue").text(totalValue.toFixed(2));
+    $("#totalQuantity").text(totalQuantity);
+}
+
+$("#offerSave").on("click", function () {
+    var formData = $('#formOfferSave').serializeArray();
+    console.log(formData);
+    $.ajaxSetup({
+
+        headers: {
+
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+
+    });
+    $.ajax({
+        type: 'POST',
+        url: offerRoutes.storeOffer,
+        data: formData,
+        success: function (response) {
+            $("#offerSave").fadeOut();
+            console.log(response);
+            $('#success').show();
+            $('#error').hide();
+            $('#success').html(response.data);
+            setTimeout(function () {
+                $("#success").fadeOut();
+
+            }, 4000);
+
+        },
+        error: function (error) {
+
+
+            var err = '';
+            if (error.responseJSON) {
+
+                console.error('Response data:', error.responseJSON);
+
+                $('#error').show();
+                $('#success').hide();
+
+                $.each(error.responseJSON.errors, function (key, value) {
+                    err += '<li>' + value + '</li>';
+                });
+
+                $('#error').html(err);
+
+
+
+            } else {
+
+                console.error('Error:', error.statusText);
+
+                $('#error').show();
+                $('#error').html('<li>' + error.statusText + '</li>');
+            }
+        }
+    });
+});
+$("#offerUpdate").on("click", function () {
+    var formData = $('#formOfferUpdate').serializeArray();
+    console.log(formData);
+    $.ajaxSetup({
+
+        headers: {
+
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+
+    });
+    $.ajax({
+        type: 'PUT',
+        url: offerRoutes.updateOffer,
+        data: formData,
+        success: function (response) {
+            console.log(response);
+            $('#success').show();
+            $('#error').hide();
+            $('#success').html(response.data);
+            setTimeout(function () {
+                $("#success").fadeOut();
+
+            }, 4000);
+
+        },
+        error: function (error) {
+
+
+            var err = '';
+            if (error.responseJSON) {
+
+                console.error('Response data:', error.responseJSON);
+
+                $('#error').show();
+                $('#success').hide();
+
+                $.each(error.responseJSON.errors, function (key, value) {
+                    err += '<li>' + value + '</li>';
+                });
+
+                $('#error').html(err);
+
+
+
+            } else {
+
+                console.error('Error:', error.statusText);
+
+                $('#error').show();
+                $('#error').html('<li>' + error.statusText + '</li>');
+            }
+        }
+    });
 });

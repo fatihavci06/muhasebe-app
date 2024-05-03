@@ -5,6 +5,7 @@ namespace App\Http\Controllers\front;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FinancialRequest;
 use App\Services\FinancialService;
+use App\Services\ProductService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -16,9 +17,11 @@ class FinancialController extends Controller
      * Display a listing of the resource.
      */
     protected $financialService;
+    protected $productService;
 
-    public function __construct(FinancialService $financialService) {
+    public function __construct(FinancialService $financialService,ProductService $productService) {
         $this->financialService = $financialService;
+        $this->productService=$productService;
     }
     public function index(Request $request)
     {
@@ -57,9 +60,10 @@ class FinancialController extends Controller
         else{
             $type=$request->type;
         }
+        $products= $this->productService->getAllData();
         $data=$this->financialService->getTypeData($type);
 
-        return response()->json(['data'=>$data]);
+        return response()->json(['data'=>$data,'products'=>$products]);
     }
 
     /**

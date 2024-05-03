@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\InvoiceObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,5 +21,11 @@ class Invoice extends Model
     public function transactions()
     {
         return $this->hasMany(InvoiceTransaction::class,'invvoice_id','id');
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::observe(InvoiceObserver::class);
     }
 }

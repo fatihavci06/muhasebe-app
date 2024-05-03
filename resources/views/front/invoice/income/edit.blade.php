@@ -88,12 +88,17 @@
                                                 <td style="width:15%;"><select class="form-control" id="kalemSec" onchange="setKDV(this)" name="kalem[]">
                                                         <option value="">Seçiniz</option>
                                                         @foreach($financial as $f)
-                                                            <option value="{{ $f->id }}" @if($f->id==$transaction->pencil_id) selected @endif data-kdv="{{ $f->kdv }}">{{ $f->name }}</option>
+                                                        <option value="{{ $f->id }}" @if($f->id==$transaction->pencil_id) selected @endif data-kdv="{{ $f->kdv }}">{{ $f->name }}</option>
                                                         @endforeach
 
                                                     </select></td>
-                                                <td><input type="text" class="form-control" name="urun[]" ></td>
-                                                <td><input type="text" class="form-control" name="adet[]" value="{{ $transaction->amount }}" oninput="calculateTotal(this)"></td>
+                                                <td style="width:15%;"><select class="form-control" id="urun" name="urun[]">
+                                                        <option value="">Seçiniz</option>
+                                                        @foreach($products as $p)
+                                                        <option value="{{ $p->id }}" @if($p->id==$transaction->product_id) selected @endif >{{ $p->name }}</option>
+                                                        @endforeach
+                                                    </select></td>
+                                                <td><input min="0"  step="any" type="number" class="form-control" name="adet[]" value="{{ $transaction->amount }}" oninput="calculateTotal(this)"></td>
                                                 <td><input type="text" class="form-control" name="tutar[]" value="{{ $transaction->price }}" oninput="calculateTotal(this)"></td>
                                                 <td><input type="text" class="form-control" name="toplamTutar[]" value="{{ $transaction->amount }}"></td>
                                                 <td><input type="text" class="form-control" name="kdv[]" value="{{ $transaction->subtotal }}" oninput="calculateTotal(this)"></td>
@@ -150,17 +155,17 @@
 @section('jquery')
 $(document).ready(function() {
 
-    calculateToplamGenelTutar();
-    calculateKdvToplamTutar();
-    calculateAraToplam();
+calculateToplamGenelTutar();
+calculateKdvToplamTutar();
+calculateAraToplam();
 
 });
 
 var invoiceRoutes = {
-        updateInvoice: "{{ route('invoice.update',$data->id) }}",
-        financialGetData: "{{ route('financial.getdata') }}",
+updateInvoice: "{{ route('invoice.update',$data->id) }}",
+financialGetData: "{{ route('financial.getdata') }}",
 
-    };
+};
 
 @endsection
 @section('includes')

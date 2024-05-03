@@ -5,6 +5,7 @@
 @extends('layouts.master')
 <!-- SIDEBAR -->
 @section('content')
+
     <div class="widget-list">
         <div class="row">
             <div class="col-md-12 widget-holder">

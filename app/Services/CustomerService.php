@@ -19,6 +19,12 @@ class CustomerService
     {
         return $this->customerRepository->getAll();
     }
+    public function getCustomerExtre($customerId){
+        return $this->customerRepository->getCustomerExtre($customerId);
+    }
+    public function getCustomerBalance($customerId){
+        return $this->customerRepository->getCustomerBalance($customerId);
+    }
 
     public function getCustomerById($id)
     {

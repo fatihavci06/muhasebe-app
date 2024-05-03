@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
 use App\Services\CustomerService;
+use App\Services\InvoiceService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -14,10 +15,12 @@ use Yajra\DataTables\Facades\DataTables;
 class CustomerController extends Controller
 {
     protected $customerService;
+    protected $invoiceService;
 
-    public function __construct(CustomerService $customerService)
+    public function __construct(CustomerService $customerService,InvoiceService $invoiceService)
     {
         $this->customerService = $customerService;
+        $this->invoiceService = $invoiceService;
     }
     /**
      * Display a listing of the resource.
@@ -67,7 +70,9 @@ class CustomerController extends Controller
     public function extre($id)
     {
         $customer=$this->customerService->getCustomerById($id);
-        return view('front.customer.extre',['customer'=>$customer]);
+        $extre=$this->customerService->getCustomerExtre($id);
+         $balance=$this->customerService->getCustomerBalance($id);
+        return view('front.customer.extre',['customer'=>$customer,'extre'=>$extre,'balance'=>$balance]);
         //
     }
 

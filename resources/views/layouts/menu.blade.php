@@ -18,7 +18,8 @@
     <!-- Sidebar Menu -->
     <nav class="sidebar-nav">
         <ul class="nav in side-menu">
-            <li class="current-page menu-item-has-children"><a href="javascript:void(0);"><i class="list-icon feather feather-command"></i> <span class="hide-menu">Müşteriler</span></a>
+        <li class="current-page menu-item-has-children" @if(!\App\Models\UserMenu::where('user_id', auth()->id())->where('menu_id', 1)->exists()) style="display: none;" @endif>
+<a href="javascript:void(0);"><i class="list-icon feather feather-command"></i> <span class="hide-menu">Müşteriler</span></a>
                 <ul class="list-unstyled sub-menu">
                     <li><a href="{{ route('customer.index') }}">Müşteri Listesi</a>
                     </li>
@@ -27,7 +28,16 @@
 
                 </ul>
             </li>
-            <li class="menu-item-has-children "><a href="javascript:void(0);"><i class="list-icon feather feather-briefcase"></i> <span class="hide-menu">Gelir Gider Kalemi</span></a>
+            <li class="current-page menu-item-has-children"  @if(!\App\Models\UserMenu::where('user_id', auth()->id())->where('menu_id', 2)->exists()) style="display: none;" @endif><a href="javascript:void(0);"><i class="list-icon feather feather-package"></i> <span class="hide-menu">Ürünler</span></a>
+                <ul class="list-unstyled sub-menu">
+                    <li><a href="{{ route('product.index') }}">Ürün Listesi</a>
+                    </li>
+                    <li><a href="{{ route('product.create') }}">Ürün Ekle</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="menu-item-has-children "  @if(!\App\Models\UserMenu::where('user_id', auth()->id())->where('menu_id', 3)->exists()) style="display: none;" @endif ><a href="javascript:void(0);"><i class="list-icon feather feather-briefcase"></i> <span class="hide-menu">Gelir Gider Kalemi</span></a>
                 <ul class="list-unstyled sub-menu">
                     <li><a href="{{ route('financial.index') }} ">Liste</a>
                     </li>
@@ -36,7 +46,7 @@
 
                 </ul>
             </li>
-            <li class="menu-item-has-children"><a href="javascript:void(0);"><i class="list-icon feather feather-user"></i> <span class="hide-menu">Faturalar</span></a>
+            <li class="menu-item-has-children"  @if(!\App\Models\UserMenu::where('user_id', auth()->id())->where('menu_id', 4)->exists()) style="display: none;" @endif><a href="javascript:void(0);"><i class="list-icon feather feather-user"></i> <span class="hide-menu">Faturalar</span></a>
                 <ul class="list-unstyled sub-menu">
                     <li><a href="{{ route('invoice.list') }}">Fatura Listesi</a>
                     </li>
@@ -46,7 +56,7 @@
 
                 </ul>
             </li>
-            <li class="menu-item-has-children"><a href="javascript:void(0);"><i class="list-icon feather feather-feather"></i> <span class="hide-menu">Banka</span></a>
+            <li class="menu-item-has-children"  @if(!\App\Models\UserMenu::where('user_id', auth()->id())->where('menu_id', 5)->exists()) style="display: none;" @endif ><a href="javascript:void(0);" ><i class="list-icon feather feather-monitor"></i> <span class="hide-menu">Banka</span></a>
                 <ul class="list-unstyled sub-menu">
                     <li><a href="{{ route('bank.index') }}">Banka Listesi</a>
                     </li>
@@ -55,11 +65,29 @@
 
                 </ul>
             </li>
-            <li class="menu-item-has-children"><a href="javascript:void(0);"><i class="list-icon feather feather-feather"></i> <span class="hide-menu">İşlemler</span></a>
+            <li class="menu-item-has-children" @if(!\App\Models\UserMenu::where('user_id', auth()->id())->where('menu_id', 6)->exists()) style="display: none;" @endif><a href="javascript:void(0);"  ><i class="list-icon feather feather-feather"></i> <span class="hide-menu">İşlemler</span></a>
                 <ul class="list-unstyled sub-menu">
                     <li><a href="{{ route('payment.create') }}">Ödeme/Tahsilat Yap</a>
                     </li>
                     <li><a href="{{ route('payment.index') }}">Liste</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="menu-item-has-children" @if(!\App\Models\UserMenu::where('user_id', auth()->id())->where('menu_id', 7)->exists()) style="display: none;" @endif><a href="javascript:void(0);"   ><i class="list-icon feather feather-feather"></i> <span class="hide-menu">Kullanıcılar</span></a>
+                <ul class="list-unstyled sub-menu">
+                    <li><a href="{{ route('user.create') }}">Kullanıcı Oluştur</a>
+                    </li>
+                    <li><a href="{{ route('user.index') }}">Liste</a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="menu-item-has-children" @if(!\App\Models\UserMenu::where('user_id', auth()->id())->where('menu_id', 8)->exists()) style="display: none;" @endif><a href="javascript:void(0);"   ><i class="list-icon feather feather-feather"></i> <span class="hide-menu">Teklif Modülü</span></a>
+                <ul class="list-unstyled sub-menu">
+                    <li><a href="{{ route('offer.create') }}">Teklif Oluştur</a>
+                    </li>
+                    <li><a href="{{ route('offer.index') }}">Liste</a>
                     </li>
 
                 </ul>

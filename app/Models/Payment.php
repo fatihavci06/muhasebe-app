@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\PaymentObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,5 +29,11 @@ class Payment extends Model
     public function banks()
     {
         return $this->hasOne(Bank::class,'id','bank_id');
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::observe(PaymentObserver::class);
     }
 }

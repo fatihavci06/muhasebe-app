@@ -9,8 +9,11 @@ use App\Models\InvoiceTransaction;
 use App\Services\CustomerService;
 use App\Services\FinancialService;
 use App\Services\InvoiceService;
+use App\Services\ProductService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
 
 class InvoiceController extends Controller
@@ -21,20 +24,25 @@ class InvoiceController extends Controller
     protected $customerService;
     protected $financialService;
     protected $invoiceService;
-    public function __construct(CustomerService $customerService, FinancialService $financialService, InvoiceService $invoiceService)
+    protected $productService;
+    public function __construct(CustomerService $customerService, FinancialService $financialService, InvoiceService $invoiceService,ProductService $productService)
     {
         $this->customerService = $customerService;
         $this->financialService = $financialService;
         $this->invoiceService = $invoiceService;
+        $this->productService=$productService;
     }
     public function index($type = 0)
     {
         if ($type == 0) {
+            
             $customer = $this->customerService->getAllCustomers();
             $financialItem = $this->financialService->getTypeData(0);
+            
 
             return view('front.invoice.income.create', ['customers' => $customer, 'financialItem' => $financialItem]);
         } else {
+           
             return view('front.invoice.expense.create');
         }
 
@@ -86,6 +94,7 @@ class InvoiceController extends Controller
     {
 
         $result=$this->invoiceService->createData($request);
+     
         if($result==true){
             return response()->json(['data' => 'Kayıt Başarılı'], 200);
         }else{
@@ -112,7 +121,8 @@ class InvoiceController extends Controller
         $customers=$this->customerService->getAllCustomers();
         $data= $this->invoiceService->getDataByIdWithCustomer($id);
         $financial= $this->financialService->getDataByType($data->invoice_type);
-        return view('front.invoice.income.edit',['customers'=>$customers,'data'=>$data,'financial'=>$financial]);
+        $products= $this->productService->getAllData();
+        return view('front.invoice.income.edit',['customers'=>$customers,'data'=>$data,'financial'=>$financial,'products'=>$products]);
     }
 
     /**
@@ -121,11 +131,15 @@ class InvoiceController extends Controller
     public function update(InvoiceRequest $request, string $id)
     {
         //
-        $result=$this->invoiceService->updateData($id,$request);
-        if($result==true){
+        
+        
+        try {
+            $this->invoiceService->updateData($id,$request);
             return response()->json(['data' => 'Kayıt Başarılı'], 200);
-        }else{
-            return response()->json(['error' => 'Transaction failed: ' ], 500);
+        }  catch (Exception $e) {
+            // Diğer istisna türlerini yakala ve işle
+            $response['errors'][0]=$e->getMessage();
+            return response()->json($response, 500);
         }
 
     }

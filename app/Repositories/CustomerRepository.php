@@ -25,6 +25,24 @@ class CustomerRepository implements CustomerRepositoryInterface
             ->get();
         return $result;
     }
+    public function getCustomerExtre($customerId)
+    {
+        $result = DB::table('payments')
+            ->select('price', DB::raw("CASE WHEN type = 0 THEN 'Gelir Faturası' WHEN type = 1 THEN 'Gider Faturası' END AS type"), 'created_at')
+            ->where('customer_id', $customerId)
+            ->get();
+        return $result;
+    }
+    public function getCustomerBalance($customerId)
+    {
+     
+       
+        $balance = DB::table('payments')
+        ->selectRaw('COALESCE((SELECT SUM(price) FROM payments WHERE type = 0 AND customer_id = ?), 0) - COALESCE((SELECT SUM(price) FROM payments WHERE type = 1 AND customer_id = ?), 0) AS net_total', [$customerId, $customerId])
+        ->value('net_total');
+        
+        return $balance;
+    }
 
     public function find($id)
     {

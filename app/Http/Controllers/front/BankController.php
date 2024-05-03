@@ -4,8 +4,10 @@ namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BankRequest;
+use App\Models\User;
 use App\Services\BankService;
 use Exception;
+use App\Models\Logger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\Facades\DataTables;
@@ -27,13 +29,17 @@ class BankController extends Controller
     public function index(Request $request)
     {
         //
+      
+        
+           
         if ($request->ajax()) {
+           
             $data = $this->bankService->getAllData();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
                     $btn = '<a href="' . route("bank.edit", $data->id) . '" class="edit btn btn-primary btn-sm">Düzenle</a>';
-                    $btn .= ' <a href="#" class="delete btn btn-danger btn-sm" onclick="silmedenSor(\'' . route('bank.delete', ['id' => $data->id]) . '\'); return false;">Sil</a>';
+                    $btn .= ' <a href="#" class="delete btn btn-danger btn-sm" onclick="silmedenSor(\'' . route('product.delete', ['id' => $data->id]) . '\'); return false;">Sil</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -61,6 +67,7 @@ class BankController extends Controller
         try {
             $isTrue = $this->bankService->createData($request);
             if ($isTrue) {
+                
                 return redirect()->back()->with('success', 'İşlem başarıyla tamamlandı.');
             } else {
                 return redirect()->back()->with('fail', 'İşlem başarısız.');

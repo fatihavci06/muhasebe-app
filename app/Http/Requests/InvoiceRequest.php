@@ -27,12 +27,39 @@ class InvoiceRequest extends FormRequest
             'faturaNo'=>'required' ,
             'faturaTarih'=>'required' ,
             'musteriId'=>'required',
-            'kalem'=>'required',
+            'kalem.*'=>'required',
+            'adet.*'=>'required',
+            'urun.*'=>'required',
+            'tutar.*'=>'numeric|required',
             'invoice_type'=>'required'
 
         ];
 
     }
+   
+
+    public function messages()
+    {
+        $messages = [];
+        $index = 1;
+
+        foreach ($this->input('kalem', []) as $key => $value) {
+            $messages["kalem.$key.required"] = "$index. satır kalem alanı zorunludur";
+            $messages["adet.$key.required"] = "$index. satır adet alanı zorunludur";
+            $messages["urun.$key.required"] = "$index. satır ürün alanı zorunludur";
+            $messages["tutar.$key.required"] = "$index. satır tutar alanı zorunludur";
+            $messages["tutar.$key.numeric"] = "$index. satır tutar alanı sadece sayısal değerler içermelidir";
+            $index++;
+        }
+      
+
+      
+
+        return $messages;
+    
+}
+
+    
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(

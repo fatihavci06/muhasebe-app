@@ -42,4 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function menus()
+    {
+        return $this->belongsToMany(Menu::class, 'user_menus', 'user_id', 'menu_id');
+
+    }
 }

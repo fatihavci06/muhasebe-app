@@ -52,7 +52,10 @@ class PaymentRepository implements PaymentRepositoryInterface
 
     public function update($id, Request $request)
     {
-        return Payment::where('id', $id)->update($request->except(['_method', '_token']));
+        
+        $payment = Payment::findOrFail($id);
+        return $payment->update($request->except(['_method', '_token']));
+        
     }
 
     public function delete($id)

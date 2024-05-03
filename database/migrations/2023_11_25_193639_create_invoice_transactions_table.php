@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('invvoice_id');
             $table->integer('pencil_id')->nullable();
-            $table->integer('amount')->nullable();
+            $table->integer('amount')->default(0);
             $table->double('price')->nullable();
             $table->integer('kdv')->nullable();
             $table->double('subtotal')->nullable();
