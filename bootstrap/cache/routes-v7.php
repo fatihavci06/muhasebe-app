@@ -102,7 +102,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::GTCXeOJRVV4toJvK',
+            '_route' => 'generated::MstCuOeVxWKfVOvt',
           ),
           1 => NULL,
           2 => 
@@ -122,7 +122,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::II9Usg5zzwIsLARN',
+            '_route' => 'generated::yWTHjDYMuTUSrE1D',
           ),
           1 => NULL,
           2 => 
@@ -159,7 +159,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::XONXYTsI7cO2BpNL',
+            '_route' => 'generated::IOXWaHcfME9rDjxK',
           ),
           1 => NULL,
           2 => 
@@ -214,7 +214,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::tubnqPF5O1fdRxge',
+            '_route' => 'generated::qhLIuL4bpMnK4Ztd',
           ),
           1 => NULL,
           2 => 
@@ -305,12 +305,32 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::AbeGaykj5NuM2pSY',
+            '_route' => 'generated::haa872yhZIW7SjDC',
           ),
           1 => NULL,
           2 => 
           array (
             'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/invoice/invoice-payment' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'invoice.listWithPaymentType',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
           ),
           3 => NULL,
           4 => false,
@@ -779,7 +799,7 @@ app('router')->setCompiledRoutes(
     ),
     2 => 
     array (
-      0 => '{^(?|/p(?|a(?|ssword/reset/([^/]++)(*:37)|yment/(?|create(?|(?:/([^/]++))?(*:76)|(*:83))|edit/([^/]++)(*:104)|update/([^/]++)(*:127)|delete/([^/]++)(*:150)))|roduct/(?|edit/([^/]++)(*:183)|update/([^/]++)(*:206)|delete/([^/]++)(*:229)))|/customer/(?|e(?|xtre/([^/]++)(*:269)|dit/([^/]++)(*:289))|update/([^/]++)(*:313)|delete/([^/]++)(*:336))|/bank/(?|edit/([^/]++)(*:367)|update/([^/]++)(*:390)|delete/([^/]++)(*:413))|/offer/(?|edit/([^/]++)(*:445)|update/([^/]++)(*:468)|delete/([^/]++)(*:491))|/user/(?|create(?|(?:/([^/]++))?(*:532)|(*:540))|edit/([^/]++)(*:562)|update/([^/]++)(*:585)|delete/([^/]++)(*:608))|/financial/([^/]++)(?|(*:639)|/edit(*:652)|(*:660))|/invoice(?|/delete(?:/([^/]++))?(*:701)|(?:/([^/]++))?(*:723)|/invoice(?|\\-payment\\}(*:753)|/(?|edit/([^/]++)(*:778)|update/([^/]++)(*:801)))))/?$}sDu',
+      0 => '{^(?|/p(?|a(?|ssword/reset/([^/]++)(*:37)|yment/(?|create(?|(?:/([^/]++))?(*:76)|(*:83))|edit/([^/]++)(*:104)|update/([^/]++)(*:127)|delete/([^/]++)(*:150)))|roduct/(?|edit/([^/]++)(*:183)|update/([^/]++)(*:206)|delete/([^/]++)(*:229)))|/customer/(?|e(?|xtre/([^/]++)(*:269)|dit/([^/]++)(*:289))|update/([^/]++)(*:313)|delete/([^/]++)(*:336))|/bank/(?|edit/([^/]++)(*:367)|update/([^/]++)(*:390)|delete/([^/]++)(*:413))|/offer/(?|edit/([^/]++)(*:445)|update/([^/]++)(*:468)|delete/([^/]++)(*:491))|/user/(?|create(?|(?:/([^/]++))?(*:532)|(*:540))|edit/([^/]++)(*:562)|update/([^/]++)(*:585)|delete/([^/]++)(*:608))|/financial/([^/]++)(?|(*:639)|/edit(*:652)|(*:660))|/invoice(?|/delete(?:/([^/]++))?(*:701)|(?:/([^/]++))?(*:723)|/invoice/(?|edit/([^/]++)(*:756)|update/([^/]++)(*:779))))/?$}sDu',
     ),
     3 => 
     array (
@@ -1463,29 +1483,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      753 => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'invoice.listWithPaymentType',
-          ),
-          1 => 
-          array (
-          ),
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      778 => 
+      756 => 
       array (
         0 => 
         array (
@@ -1508,7 +1506,7 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
-      801 => 
+      779 => 
       array (
         0 => 
         array (
@@ -1691,7 +1689,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::GTCXeOJRVV4toJvK' => 
+    'generated::MstCuOeVxWKfVOvt' => 
     array (
       'methods' => 
       array (
@@ -1714,7 +1712,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::GTCXeOJRVV4toJvK',
+        'as' => 'generated::MstCuOeVxWKfVOvt',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1730,7 +1728,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::II9Usg5zzwIsLARN' => 
+    'generated::yWTHjDYMuTUSrE1D' => 
     array (
       'methods' => 
       array (
@@ -1752,7 +1750,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::II9Usg5zzwIsLARN',
+        'as' => 'generated::yWTHjDYMuTUSrE1D',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1805,7 +1803,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::XONXYTsI7cO2BpNL' => 
+    'generated::IOXWaHcfME9rDjxK' => 
     array (
       'methods' => 
       array (
@@ -1825,7 +1823,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::XONXYTsI7cO2BpNL',
+        'as' => 'generated::IOXWaHcfME9rDjxK',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1914,7 +1912,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::tubnqPF5O1fdRxge' => 
+    'generated::qhLIuL4bpMnK4Ztd' => 
     array (
       'methods' => 
       array (
@@ -1934,7 +1932,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::tubnqPF5O1fdRxge',
+        'as' => 'generated::qhLIuL4bpMnK4Ztd',
       ),
       'fallback' => false,
       'defaults' => 
@@ -2133,7 +2131,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::AbeGaykj5NuM2pSY' => 
+    'generated::haa872yhZIW7SjDC' => 
     array (
       'methods' => 
       array (
@@ -2153,7 +2151,45 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::AbeGaykj5NuM2pSY',
+        'as' => 'generated::haa872yhZIW7SjDC',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'invoice.listWithPaymentType' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'invoice/invoice-payment',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'auth',
+        ),
+        'uses' => 'App\\Http\\Controllers\\front\\InvoiceController@listWithPaymentType',
+        'controller' => 'App\\Http\\Controllers\\front\\InvoiceController@listWithPaymentType',
+        'namespace' => NULL,
+        'prefix' => '',
+        'where' => 
+        array (
+        ),
+        'as' => 'invoice.listWithPaymentType',
       ),
       'fallback' => false,
       'defaults' => 
@@ -4133,45 +4169,6 @@ app('router')->setCompiledRoutes(
         array (
         ),
         'as' => 'invoice',
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
-    'invoice.listWithPaymentType' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'GET',
-        1 => 'HEAD',
-      ),
-      'uri' => 'invoice/invoice-payment}',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-          1 => 'auth',
-          2 => 'permission',
-        ),
-        'uses' => 'App\\Http\\Controllers\\front\\InvoiceController@listWithPaymentType',
-        'controller' => 'App\\Http\\Controllers\\front\\InvoiceController@listWithPaymentType',
-        'namespace' => NULL,
-        'prefix' => '/invoice',
-        'where' => 
-        array (
-        ),
-        'as' => 'invoice.listWithPaymentType',
       ),
       'fallback' => false,
       'defaults' => 

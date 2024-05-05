@@ -35,14 +35,14 @@ class InvoiceController extends Controller
     public function index($type = 0)
     {
         if ($type == 0) {
-            
+
             $customer = $this->customerService->getAllCustomers();
             $financialItem = $this->financialService->getTypeData(0);
-            
+
 
             return view('front.invoice.income.create', ['customers' => $customer, 'financialItem' => $financialItem]);
         } else {
-           
+
             return view('front.invoice.expense.create');
         }
 
@@ -94,7 +94,7 @@ class InvoiceController extends Controller
     {
 
         $result=$this->invoiceService->createData($request);
-     
+
         if($result==true){
             return response()->json(['data' => 'Kayıt Başarılı'], 200);
         }else{
@@ -131,8 +131,8 @@ class InvoiceController extends Controller
     public function update(InvoiceRequest $request, string $id)
     {
         //
-        
-        
+
+
         try {
             $this->invoiceService->updateData($id,$request);
             return response()->json(['data' => 'Kayıt Başarılı'], 200);

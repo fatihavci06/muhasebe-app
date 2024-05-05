@@ -37,10 +37,10 @@ function addRow() {
                 <option value="">Seçiniz</option>`+ productList + `
             </select></td>
              value="{{ old('quantity') }}" min="0"
-                <td><input step="any" type="number" min="0"class="form-control" name="adet[]"  oninput="calculateTotal(this)"></td>
-                <td><input type="text" class="form-control" name="tutar[]" oninput="calculateTotal(this)"></td>
+                <td><input step="any" type="number" min="0"class="form-control" name="adet[]"  oninput="calculateTotalInvoice(this)"></td>
+                <td><input type="text" class="form-control" name="tutar[]" oninput="calculateTotalInvoice(this)"></td>
                 <td><input type="text" class="form-control" name="toplamTutar[]"></td>
-                <td><input type="text" class="form-control" name="kdv[]" oninput="calculateTotal(this)"></td>
+                <td><input type="text" class="form-control" name="kdv[]" oninput="calculateTotalInvoice(this)"></td>
                 <td><input type="text" class="form-control" name="kdvToplam[]"></td>
                 <td><input type="text" class="form-control" name="genelToplam[]"></td>
                 <td><input type="text" class="form-control" name="aciklama[]"></td>
@@ -77,10 +77,10 @@ function setKDV(selectElement) {
 
     // KDV inputuna değeri yaz
     $(selectElement).closest('tr').find('input[name="kdv[]"]').val(kdvValue);
-    calculateTotal(selectElement);
+    calculateTotalInvoice(selectElement);
 }
 
-function calculateTotal(input) {
+function calculateTotalInvoice(input) {
 
     var row = $(input).closest('tr');
     var adet = parseFloat(row.find('input[name="adet[]"]').val()) || 0;
@@ -280,11 +280,13 @@ $("#invoice_type").change(function () {
 
 $("#payment_type").change(function () {
     var payment_type = $('#payment_type').val();
+
     $.ajax({
         type: 'GET',
         url: invoiceRoutes.listWithPaymentType,
         data: { payment_type: payment_type },
         success: function (response) {
+            console.log(response);
             $('#invoices').empty();
             $('#invoices').append($('<option>', {
                 value: "",
@@ -348,6 +350,7 @@ $(document).on('input', '.product-quantity, .product-price', function () {
 
 // Toplamı hesapla
 function calculateTotal() {
+
     var totalValue = 0;
     var totalQuantity = 0;
     $("#productTableBody tr").each(function () {

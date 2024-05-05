@@ -28,9 +28,9 @@ class UserPermission
         if(count($menus)==0){
             abort(403,'Yetkiniz Yok');
         }
-   
-        
-        
+
+
+
         return $next($request);
     }
 }

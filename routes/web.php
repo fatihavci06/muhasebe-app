@@ -31,9 +31,11 @@ Route::get('/', function () {
 Auth::routes();
 Route::middleware(['auth'])->group(function () {
     // Routes that require authentication and admin role
+    Route::get('invoice/invoice-payment', [InvoiceController::class, 'listWithPaymentType'])->name('invoice.listWithPaymentType');
+
     Route::get('index', [IndexController::class, 'index'])->name('index');
     Route::middleware(['permission'])->group(function () {
-        
+
         Route::group(['prefix' => 'customer'], function () {
             // Bu grup içindeki tüm routelar için bir önek ve namespace belirlenir.
             Route::get('/', [CustomerController::class, 'index'])->name('customer.index');
@@ -99,20 +101,20 @@ Route::middleware(['auth'])->group(function () {
             Route::post('store', [InvoiceController::class, 'store'])->name('invoice.store');
             Route::get('delete/{id?}', [InvoiceController::class, 'destroy'])->name('invoice.destroy');
             Route::get('{type?}', [InvoiceController::class, 'index'])->name('invoice');
-            Route::get('invoice-payment}', [InvoiceController::class, 'listWithPaymentType'])->name('invoice.listWithPaymentType');
-        
+            // Route::get('invoice-payment', [InvoiceController::class, 'listWithPaymentType'])->name('invoice.listWithPaymentType');
+
             Route::get('/invoice/edit/{id}', [InvoiceController::class, 'edit'])->name('invoice.edit');
             Route::put('/invoice/update/{id}', [InvoiceController::class, 'update'])->name('invoice.update');
         });
-        
-        
-        
+
+
+
         Route::middleware('permission')->get('profile-edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::middleware('permission')->put('profile-update', [ProfileController::class, 'update'])->name('profile.update');
-        
-    });
-});
 
+    });
+
+});
 
 
 
